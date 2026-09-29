@@ -1,0 +1,39 @@
+# A separate Vite app that has nothing to do with this site. 151 MB.
+react-app/
+
+# Editor and tooling
+.claude/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Loose files that live in this folder but are not part of the site
+New folder/
+*.pdf
+!assets/resume.pdf
+
+# Source artwork kept on disk but not used by any page. Nash's originals, and
+# the earlier drafts these replaced. Deleting them here would only remove them
+# from the deploy, not from the folder.
+assets/illustrations/Untitled*.png
+assets/illustrations/1000007*.png
+assets/illustrations/Hero.png
+assets/illustrations/Journey.png
+assets/illustrations/Notes.png
+assets/illustrations/work.png
+assets/illustrations/Lets connect.png
+assets/illustrations/fortunecookie.png
+assets/illustrations/README.txt
+
+# Superseded: these four case cards use photographs now
+assets/illustrations/case-p1.svg
+assets/illustrations/case-p2.svg
+assets/illustrations/case-p4.svg
+assets/illustrations/case-p6.svg
+
+# Unused placeholder icons from the first build
+assets/illustrations/bag.svg
+assets/illustrations/envelope.svg
+assets/illustrations/palm-chair.svg
+assets/illustrations/fortune-cookie-left.svg
+assets/illustrations/fortune-cookie-right.svg

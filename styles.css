@@ -1,0 +1,1932 @@
+/* ============================================================
+   Nakshatra Kadethankar. Portfolio
+
+   Palette. Exactly three base hues, everything else on this page
+   is a tint or shade derived from these three. Do not introduce
+   a fourth hue anywhere in this file.
+     cream (base)   #FAF5EA
+     ink (text/line) #4A342E
+     sage (accent)  #C9D77E
+   The one deliberate exception is the fortune cookie illustration
+   on fortune.html, which uses literal cookie-tan colors since it
+   is a drawn object, not a UI surface.
+   ============================================================ */
+
+:root {
+  --color-cream:      #faf5ea;
+  --color-cream-soft: #f1ead9;
+  --color-paper:      #fffdf7;
+  --color-ink:        #4a342e;
+  --color-ink-soft:   rgba(74, 52, 46, 0.72);
+  --color-ink-faint:  rgba(74, 52, 46, 0.45);
+  --color-sage:       #c9d77e;
+  --color-sage-dark:  #a9bb52;
+  --color-sage-soft:  #eef2d7;
+  --color-terracotta: #64514a; /* shade of ink, stands in for "terracotta" without adding a hue */
+  --cream-on-ink:     rgba(250, 245, 234, 0.75);
+  --border:           rgba(74, 52, 46, 0.2);
+
+  /* fine paper-fiber grain: a seamless 200x200 SVG noise tile, ink-colored at
+     very low alpha so it reads as genuine paper texture on any base color
+     underneath. Tiling (not stretching) keeps it scale-invariant, so it looks
+     identical whether it's behind a small card or the whole page. */
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.29 0 0 0 0 0.2 0 0 0 0 0.18 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* same grain, cream-colored, for the dark ink surfaces (Work band, pinboard) */
+  --texture-grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.98 0 0 0 0 0.96 0 0 0 0 0.92 0 0 0 0.25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  --font-display: 'Caveat', cursive;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease-swift: cubic-bezier(.16, 1, .3, 1);
+  --dur-swift: 0.32s;
+  --dur-reveal: 0.42s;
+
+  --nav-h: 84px;
+  --container: 1240px;
+  --frame: 18px;      /* bottom gutter; the top edge runs flush to the nav */
+  --frame-side: 86px; /* left/right gutter, sized to carry the stamp strip */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  /* No native smooth scroll. script.js owns anchor scrolling via a hand-tuned smoothScrollTo(). */
+  font-size: 16px;
+  /* deliberately NO overflow-x here: it makes html/body scroll containers, which
+     silently breaks the hero's position:sticky pin. The 100vw band that once
+     needed clipping was fixed at the source instead. */
+}
+
+body {
+  /* the body IS the frame: ink shows in the padding gutter around everything */
+  background-color: var(--color-ink);
+  background-image: var(--texture-grain-light);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  /* no top gutter: the nav sits flush against the top edge */
+  padding: 0 var(--frame-side) var(--frame);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+section.section {
+  position: relative;
+  width: 100%;
+  padding: 7rem 0;
+  isolation: isolate; /* keeps a section's full-bleed .band contained to its own paint order */
+}
+
+.section-inner {
+  position: relative;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+/* full-bleed color band: sits behind a section's content regardless of the
+   centered max-width container. Do not recolor --color-ink at the section
+   level to make text readable here, since cards inside (polaroids, sticky
+   notes, buttons) share that token. Only override the specific ambient
+   text that sits directly on the band. */
+.band {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  bottom: -30px;
+  z-index: -1;
+  will-change: transform;
+}
+.section--brown { overflow: hidden; }
+.section--brown .band { background-color: var(--color-ink); background-image: var(--texture-grain-light); background-repeat: repeat; background-size: 200px 200px; }
+
+.section--brown .section-head h2 { color: var(--color-cream); }
+.section--brown .section-head .section-note { color: var(--cream-on-ink); }
+
+.section-head { max-width: 640px; margin-bottom: 4rem; }
+
+.eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-sage-dark);
+  margin-bottom: 0.9rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.4vw, 3.8rem);
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+
+.section-note {
+  margin-top: 1rem;
+  color: var(--color-ink-soft);
+  font-size: 1rem;
+  max-width: 46ch;
+}
+
+.accent-dot { color: var(--color-sage-dark); }
+
+/* ============ frame stamp strips ============ *
+ * The vertical stamp drawing tiles down both gutters. The element stays fixed to
+ * the viewport edge while script.js drifts the tiling background at half the
+ * scroll speed, matching the reference site's parallax (measured at exactly
+ * 0.5x). Drifting the background rather than the element means the repeat
+ * handles any document height for free. Hidden at the same breakpoint as the
+ * doodles, where the gutter narrows to a hairline. */
+.frame-strip {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: var(--frame-side);
+  background-image: url("assets/illustrations/border-stamps.png");
+  background-repeat: repeat-y;
+  background-position: center var(--strip-shift, 0px);
+  background-size: calc(var(--frame-side) - 18px) auto;
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 940;
+}
+.frame-strip--left { left: 0; }
+.frame-strip--right { right: 0; }
+
+@media (max-width: 1100px) {
+  .frame-strip { display: none; }
+}
+
+/* ============ background doodles ============ *
+ * Hand-drawn illustrations scattered into each section's empty margins.
+ * Ink-coloured art goes on the light sections, cream-coloured art on the dark
+ * ones. Positioned per-instance with --x/--y/--size/--r. They sit behind the
+ * content (.section-inner is lifted above them) and are hidden on narrow
+ * screens, where there are no spare margins left to sit in. */
+.deco {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size, 140px);
+  height: auto;
+  rotate: var(--r, 0deg);
+  opacity: var(--op, 0.7);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.section-inner { z-index: 1; }
+
+@media (max-width: 1100px) {
+  :root { --frame-side: 14px; }
+  .deco { display: none; }
+}
+
+/* ============ click wiggle ============ *
+ * A small burst of hand-drawn strokes at the pointer on every click. Spawned
+ * and removed by script.js, so it never lingers in the DOM. */
+.click-wiggle {
+  position: fixed;
+  width: 44px;
+  height: 44px;
+  margin-left: -22px;
+  margin-top: -22px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: click-wiggle 0.45s var(--ease-swift) forwards;
+}
+
+@keyframes click-wiggle {
+  0%   { opacity: 0;   scale: 0.4; rotate: -12deg; }
+  35%  { opacity: 1;   scale: 1.05; rotate: 4deg; }
+  100% { opacity: 0;   scale: 1.35; rotate: 10deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .click-wiggle { display: none; }
+}
+
+/* ============ scroll progress ============ */
+.scroll-progress { position: fixed; top: 0; left: var(--frame-side); right: var(--frame-side); height: 3px; z-index: 1000; }
+.scroll-progress span {
+  display: block; height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--color-sage-dark), var(--color-ink));
+  transition: width 0.08s linear;
+}
+
+/* ============ nav ============ */
+.site-nav {
+  position: fixed; top: 0; left: var(--frame-side); right: var(--frame-side); height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  /* above .mobile-nav (950): the toggle's own z-index:1001 is confined to
+     this header's stacking context, so with the header at 900 the open menu
+     covered the very button that closes it. */
+  z-index: 960;
+  background: linear-gradient(to bottom, rgba(250,245,234,0.94), rgba(250,245,234,0));
+  backdrop-filter: blur(6px);
+}
+
+/* her own face, traced out of the hero drawing, in place of the N. wordmark */
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  transition: rotate var(--dur-swift) var(--ease-swift), scale var(--dur-swift) var(--ease-swift);
+}
+.nav-logo img { display: block; width: 42px; height: 42px; }
+.nav-logo:hover { rotate: -6deg; scale: 1.08; }
+
+.nav-links { display: flex; align-items: center; gap: 2.2rem; }
+
+.nav-links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  padding: 0.4rem 0.1rem;
+}
+
+/* Hand-drawn wobbly circle, echoing the chalk-doodle nav reference. The radii
+   are 50%/62% rather than a large pixel value: CSS scales radii down when they
+   exceed the box, so a 255px radius on a 44px-tall link rendered as a near
+   rectangle. The :not(.nav-cta) guard is gone with the Resume button. */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  inset: -9px -12px;
+  border: 2px solid var(--color-sage-dark);
+  border-radius: 50% / 62%;
+  opacity: 0;
+  transform: scale(0.84) rotate(-5deg);
+  transform-origin: 50% 50%;
+  pointer-events: none;
+  transition: opacity var(--dur-swift) var(--ease-swift),
+              transform var(--dur-swift) var(--ease-swift);
+}
+.nav-links a:hover::after { opacity: 1; transform: scale(1) rotate(-2deg); }
+
+/* ---- nav doodles ---- *
+ * One drawing per destination, hanging below the link on hover. Below rather
+ * than above because the nav is only --nav-h tall and pinned to the top, so
+ * anything above the label would be cut off by the viewport edge. */
+.nav-doodle {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  width: 66px;
+  height: auto;
+  /* the global img{max-width:100%} would otherwise clamp these to the width of
+     the word above them, squashing the shorter labels' doodles */
+  max-width: none;
+  translate: -50% 0;
+  scale: 0.72;
+  rotate: -7deg;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-swift) var(--ease-swift),
+              scale var(--dur-swift) var(--ease-swift),
+              rotate var(--dur-swift) var(--ease-swift);
+}
+.nav-links a:hover .nav-doodle,
+.nav-links a:focus-visible .nav-doodle {
+  opacity: 1;
+  scale: 1;
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-doodle { transition: opacity var(--dur-swift) linear; scale: 1; rotate: 0deg; }
+}
+
+/* Resume CTA: small-radius rectangle, deliberately not a pill */
+
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 44px; height: 44px; background: none; border: none; cursor: pointer; z-index: 1001;
+}
+.nav-toggle span {
+  display: block; width: 24px; height: 2px; background: var(--color-ink); margin: 0 auto;
+  transition: transform var(--dur-swift) var(--ease-swift), opacity var(--dur-swift) var(--ease-swift);
+}
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-nav {
+  position: fixed; inset: 0 var(--frame-side) var(--frame); background: var(--color-ink); color: var(--color-cream); z-index: 950;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  gap: 1.6rem; padding: 2.5rem;
+  transform: translateY(-100%);
+  transition: transform var(--dur-swift) var(--ease-swift);
+}
+.mobile-nav.open { transform: translateY(0); }
+
+/* with the header now on top, its cream gradient would band across the ink
+   panel, so it goes transparent while the menu is open and its marks flip */
+body.menu-open .site-nav { background: none; box-shadow: none; }
+body.menu-open .nav-toggle span { background: var(--color-cream); }
+
+.mobile-link {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 9vw, 3.2rem);
+  font-weight: 600;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-doodle {
+  width: 46px;
+  height: auto;
+  max-width: none;
+  margin-left: 0.9rem;
+  /* the drawings are ink on transparent, which would vanish on the ink overlay */
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+
+/* ============ fortune tab (hidden easter egg entry) ============ */
+.fortune-tab {
+  position: fixed;
+  right: var(--frame-side);
+  top: 62%;
+  transform: translateY(-50%);
+  /* cream with an ink border: this floats over cream, sage AND ink sections,
+     and light-on-dark plus the outline is the only combination that stays
+     legible against all three */
+  background: var(--color-cream);
+  color: var(--color-ink);
+  padding: 0.7rem 1rem;
+  border-radius: 8px 0 0 8px;
+  border: 1.5px solid var(--color-ink);
+  border-right: none;
+  box-shadow: -3px 3px 0 rgba(74, 52, 46, 0.18);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-swift) var(--ease-swift), transform var(--dur-swift) var(--ease-swift), background var(--dur-swift) ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.fortune-tab.visible { opacity: 1; pointer-events: auto; }
+.fortune-tab:hover { transform: translateY(-50%) translateX(-4px); background: var(--color-sage-dark); color: var(--color-ink); }
+.fortune-emoji { font-size: 1.1rem; line-height: 1; }
+
+/* ============ reveal animation ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--dur-reveal) var(--ease-swift), transform var(--dur-reveal) var(--ease-swift);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.reveal-1.in-view { transition-delay: 0.06s; }
+.reveal-2.in-view { transition-delay: 0.12s; }
+.reveal-3.in-view { transition-delay: 0.18s; }
+.reveal-4.in-view { transition-delay: 0.24s; }
+
+.reveal-5.in-view { transition-delay: 0.30s; }
+.reveal-6.in-view { transition-delay: 0.36s; }
+
+/* hero lands on load rather than on scroll, so it isn't already sitting there
+   when the page paints */
+@keyframes hero-rise {
+  from { opacity: 0; translate: 0 26px; }
+  to { opacity: 1; translate: 0 0; }
+}
+/* independent translate/scale, NOT transform: .hero-board-pos already uses
+   transform for its translateX(-50%) centering, and a keyframe on transform
+   silently wipes that out and shoves the banner half its width off-centre. */
+@keyframes banner-unfurl {
+  from { opacity: 0; translate: 0 -18px; scale: 1 0.82; }
+  to { opacity: 1; translate: 0 0; scale: 1 1; }
+}
+.hero-avatar { animation: hero-rise 0.75s var(--ease-swift) both; }
+.hero-board-pos { animation: banner-unfurl 0.7s var(--ease-swift) 0.12s both; transform-origin: center top; }
+.hero-actions { animation: hero-rise 0.6s var(--ease-swift) 0.3s both; }
+
+/* section titles get a sage underline that draws itself in as they arrive */
+.section-title { position: relative; display: inline-block; }
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.18em;
+  height: 4px;
+  width: 100%;
+  border-radius: 3px;
+  background: var(--color-sage-dark);
+  transform-origin: left center;
+  scale: 0 1;
+  transition: scale 0.55s var(--ease-swift) 0.12s;
+}
+.section-title.in-view::after { scale: 1 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-avatar, .hero-board-pos, .hero-actions { animation: none; }
+  .section-title::after { transition: none; scale: 1 1; }
+}
+
+/* ============ buttons and controls ============ *
+ * CTAs are small-radius rectangles. Controls (arrows, close) are circles.
+ * Nothing on this site is a stadium/pill shape. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.9rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  min-height: 44px;
+  transition: transform var(--dur-swift) var(--ease-swift), background var(--dur-swift) var(--ease-swift), color var(--dur-swift) var(--ease-swift), box-shadow var(--dur-swift) var(--ease-swift);
+}
+.btn-primary { background: var(--color-ink); color: var(--color-cream); }
+.btn-primary:hover {
+  background: var(--color-sage-dark);
+  color: var(--color-ink);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -10px rgba(74, 52, 46, 0.45);
+}
+.btn-ghost { border: 1.5px solid var(--color-ink); color: var(--color-ink); }
+.btn-ghost:hover { background: var(--color-ink); color: var(--color-cream); transform: translateY(-3px); }
+
+.icon-btn {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid var(--color-ink); background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-ink); flex-shrink: 0;
+  transition: background var(--dur-swift) var(--ease-swift), color var(--dur-swift) var(--ease-swift), transform var(--dur-swift) var(--ease-swift);
+}
+.icon-btn:hover { background: var(--color-ink); color: var(--color-cream); transform: scale(1.08); }
+.icon-btn:active { transform: scale(0.96); }
+
+/* tags: small rectangles with a left accent border, not chips */
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+.tag {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.32rem 0.7rem 0.32rem 0.6rem;
+  border-radius: 3px;
+  background: var(--color-sage-soft);
+  border-left: 3px solid var(--color-sage-dark);
+  color: var(--color-ink);
+  transition: translate var(--dur-swift) var(--ease-swift), border-left-width var(--dur-swift) var(--ease-swift);
+}
+.tag:hover { translate: 0 -2px; border-left-width: 6px; }
+
+/* ============ hero ============ *
+ * Figure sits bottom-left, grounded on the section edge. The folder is pinned
+ * to her outstretched palm, measured from the artwork itself: the hand band
+ * runs 37-52% down the drawing and reaches its right edge, so the folder hangs
+ * off 44.6% down and just past 100% across. Re-measure if the art is redrawn. */
+.hero {
+  position: relative;
+  /* minus the body's bottom gutter so the figure's base lands on the fold, and
+     capped because on a 1180px tablet an uncapped 100vh stretched the column's
+     space-between into a ~700px void between the title and the drawing */
+  min-height: min(calc(100vh - var(--frame)), 960px);
+  display: flex;
+  align-items: stretch;
+  background-color: var(--color-cream);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  overflow-x: clip;
+}
+
+.hero-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 2rem) 2.5rem 0;
+}
+
+.hero-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-sage-dark);
+  margin-bottom: 0.8rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+/* The third min() term stops the figure pushing the title off a short viewport.
+   The art is 560x401 (1.396:1) and the height left for it is the viewport minus
+   325px: 119 nav and top padding, 130 title block, 32 row gap, 44 slack. At a
+   normal 900px viewport nothing binds and the figure stays its full 560. */
+.hero-figure-wrap {
+  position: relative;
+  width: max(280px, min(46vw, 560px, calc((100vh - 325px) * 1.396)));
+  margin-left: 0;
+}
+
+.hero-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- folder in her palm ---- *
+ * Anchored by its BOTTOM to the palm line so it rests on her hand and grows
+ * upward into the open space, rather than hanging off it and falling below
+ * the fold. */
+.folder-stage {
+  position: absolute;
+  left: 90%;
+  bottom: 55.4%; /* 100% - 44.6% palm line */
+  width: min(30vw, 330px);
+  z-index: 2;
+  transition: transform var(--dur-swift) var(--ease-swift);
+}
+/* on the stage, not the button: the cards are siblings of .folder, so lifting
+   only the button slid the two apart */
+.folder-stage:hover { transform: translateY(-4px) rotate(-1deg); }
+
+.folder {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  cursor: pointer;
+}
+.folder:focus-visible { outline: 2px solid var(--color-sage-dark); outline-offset: 6px; }
+
+/* Translucent so her hand and the page read through. The outline is an authored
+   wobbly path, not a CSS border: displacing a 3px border with a turbulence
+   filter just tore it into stepped fragments. */
+.folder-back,
+.folder-front {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.folder-back svg,
+.folder-front svg {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  overflow: visible;
+}
+.folder-back path,
+.folder-front path {
+  fill: rgba(241, 234, 217, 0.42);
+  stroke: var(--color-ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+/* front pocket a shade denser so it still reads as the nearer layer */
+.folder-front path { fill: rgba(241, 234, 217, 0.66); }
+.folder-back {
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+/* the front pocket panel: tall enough that the tucked cards only peek */
+.folder-front {
+  bottom: 0;
+  height: 88%;
+  filter: drop-shadow(0 -6px 12px rgba(74, 52, 46, 0.22));
+  transform-origin: center bottom;
+  transition: transform var(--dur-swift) var(--ease-swift);
+  z-index: 3;
+}
+.folder.is-open .folder-front { transform: rotateX(22deg); }
+
+.folder-label {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.85rem;
+  z-index: 4;
+  text-align: left;
+  pointer-events: none;
+}
+.folder-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--color-ink);
+}
+/* ---- the intro dialog ---- *
+ * Opened by the folder in her palm. It is a centred overlay rather than a
+ * popover anchored to the folder: at 1440x900 the panel is 423px tall and only
+ * 330px of room exists between the folder and the nav, so an anchored version
+ * slid up behind the header and took its close button with it. The scale-up
+ * from below keeps the sense of something coming out of the folder. */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(74, 52, 46, 0.72);
+  opacity: 0;
+  transition: opacity var(--dur-swift) var(--ease-swift);
+}
+.intro-overlay[hidden] { display: none; }
+.intro-overlay.open { opacity: 1; }
+
+.intro-dialog {
+  position: relative;
+  width: min(460px, 100%);
+  max-height: min(78vh, 640px);
+  overflow-y: auto;
+  padding: 1.6rem 1.7rem 1.7rem;
+  text-align: left;
+  border: 2px solid var(--color-cream);
+  border-radius: 14px;
+  /* ink ground with the cream grain, the same treatment as the Work band */
+  background-color: var(--color-ink);
+  background-image: var(--texture-grain-light);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  box-shadow: 0 26px 54px -20px rgba(0, 0, 0, 0.62);
+  translate: 0 18px;
+  scale: 0.94;
+  transition: translate var(--dur-swift) var(--ease-swift),
+              scale var(--dur-swift) var(--ease-swift);
+}
+.intro-overlay.open .intro-dialog { translate: 0 0; scale: 1; }
+
+.intro-dialog-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--color-cream);
+  transition: background var(--dur-swift) var(--ease-swift);
+}
+/* a light wash, not the pale sage pill: on ink that would swallow the icon */
+.intro-dialog-close:hover { background: rgba(250, 245, 234, 0.16); }
+.intro-dialog-close:focus-visible { outline: 2px solid var(--color-sage); outline-offset: 2px; }
+
+.intro-dialog-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-sage);
+  margin-bottom: 0.2rem;
+}
+.intro-dialog-title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 1.1rem;
+  padding-right: 2.2rem;
+  color: var(--color-cream);
+}
+
+.intro-dialog-list { display: grid; gap: 1.05rem; }
+.intro-dialog-list dt {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--color-cream);
+  margin-bottom: 0.15rem;
+}
+.intro-dialog-list dd {
+  margin: 0;
+  font-size: 0.87rem;
+  line-height: 1.55;
+  color: var(--cream-on-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-dialog { transition: none; translate: 0 0; scale: 1; }
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2.6rem;
+  color: var(--color-ink-soft);
+}
+.scroll-hint-right { right: 2.5rem; }
+
+/* ============ journey ============ */
+.journey {
+  background-color: var(--color-cream-soft);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  /* contains the stops' sideways entrance slide, which otherwise pokes past the
+     viewport edge before they're revealed. clip, not hidden: hidden would make
+     this a scroll container, and that is what broke the hero's sticky pin. */
+  overflow-x: clip;
+}
+.journey-path { position: relative; }
+
+.timeline__path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.timeline__spine {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-image: repeating-linear-gradient(to bottom, var(--color-ink) 0 8px, transparent 8px 18px);
+  opacity: 0.4;
+}
+
+.journey-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+.journey-item:last-child { margin-bottom: 0; }
+
+/* each stop arrives on its own as you reach it, sliding in from its own side,
+   with the icon landing just after the text. Handled by a dedicated observer in
+   script.js rather than the generic .reveal so the stops stay sequential. */
+.journey-item {
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-swift), translate 0.5s var(--ease-swift);
+}
+.journey-item.side-left { translate: -34px 0; }
+.journey-item.side-right { translate: 34px 0; }
+.journey-item.is-visible { opacity: 1; translate: 0 0; }
+
+.journey-item .journey-icon { opacity: 0; transition: opacity 0.45s var(--ease-swift) 0.18s; }
+.journey-item.is-visible .journey-icon { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-item,
+  .journey-item .journey-icon { opacity: 1; translate: 0 0; transition: none; }
+}
+
+.journey-icon {
+  width: 68px; height: 68px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem;
+  z-index: 2;
+  flex-shrink: 0;
+  box-shadow: 0 8px 16px -8px rgba(74, 52, 46, 0.35);
+  transition: scale var(--dur-swift) var(--ease-swift), rotate var(--dur-swift) var(--ease-swift), box-shadow var(--dur-swift) var(--ease-swift);
+}
+.journey-icon:hover { scale: 1.14; rotate: 4deg; box-shadow: 0 14px 24px -8px rgba(74, 52, 46, 0.45); }
+.journey-item:nth-child(1) .journey-icon { transform: rotate(-8deg); }
+.journey-item:nth-child(2) .journey-icon { transform: rotate(6deg); }
+.journey-item:nth-child(3) .journey-icon { transform: rotate(-5deg); }
+.journey-item:nth-child(4) .journey-icon { transform: rotate(7deg); }
+.journey-item:nth-child(5) .journey-icon { transform: rotate(-6deg); }
+.journey-item:nth-child(6) .journey-icon { transform: rotate(5deg); }
+.journey-item:nth-child(7) .journey-icon { transform: rotate(-7deg); }
+
+.timeline-date {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-sage-dark);
+  margin-bottom: 0.5rem;
+}
+
+.journey-text h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 1.7rem);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+.journey-text p { color: var(--color-ink-soft); }
+.side-left .journey-text > *, .side-right .journey-text > * { max-width: 42ch; }
+.side-left .journey-text { grid-column: 1; text-align: right; margin-left: auto; }
+.side-left .journey-icon { grid-column: 2; }
+.side-right .journey-icon { grid-column: 2; }
+.side-right .journey-text { grid-column: 3; text-align: left; margin-right: auto; }
+.side-left .tag-row { justify-content: flex-end; }
+
+/* Work that ran inside a milestone rather than after it. Deliberately a
+   different object from a stop on the trail: no 68px medallion on the spine,
+   a dashed sage rule instead, and smaller type, so the eye reads these as
+   belonging to the degree above them. Mirrored on the left-hand side, where
+   .journey-text is right aligned. */
+.journey-sub {
+  margin: 1.5rem 0 1.4rem;
+  padding-left: 1.15rem;
+  border-left: 2px dashed var(--color-sage-dark);
+  display: grid;
+  gap: 1.15rem;
+  text-align: left;
+}
+.side-left .journey-sub {
+  padding-left: 0;
+  padding-right: 1.15rem;
+  border-left: none;
+  border-right: 2px dashed var(--color-sage-dark);
+  text-align: right;
+}
+
+.journey-sub li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.side-left .journey-sub li { flex-direction: row-reverse; }
+
+.journey-sub-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  padding: 0.32rem;
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  box-shadow: 0 5px 10px -6px rgba(74, 52, 46, 0.4);
+}
+
+.journey-sub-date {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-sage-dark);
+  margin-bottom: 0.15rem;
+}
+.journey-sub h4 {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 0.2rem;
+}
+.journey-sub p {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+}
+
+/* ============ work: polaroid stack ============ */
+.polaroid-stage { display: flex; flex-direction: column; align-items: center; }
+
+.polaroid-stack {
+  position: relative;
+  /* the cards are rotated, so their painted box is a few px wider than their
+     layout box and the leftmost one was being clipped by the section */
+  width: min(calc(100% - 14px), 560px);
+  min-height: 570px;
+}
+
+.polaroid {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  background-color: var(--color-paper);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1rem 1.4rem;
+  box-shadow: 0 18px 40px -18px rgba(74, 52, 46, 0.35);
+  transition: transform var(--dur-swift) var(--ease-swift), opacity var(--dur-swift) var(--ease-swift);
+  /* no clipping: the pushpin sits above the top edge on purpose */
+}
+
+/* a pushpin through the top of the print, same family as the corkboard pins */
+.polaroid::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  z-index: 2;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 34% 30%, #fff, transparent 46%), var(--tape, var(--color-sage));
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.42);
+}
+
+.polaroid[data-pos="0"] { transform: rotate(-2deg) translate(0, 0) scale(1); z-index: 5; opacity: 1; pointer-events: auto; }
+.polaroid[data-pos="1"] { transform: rotate(4deg) translate(14px, 10px) scale(0.97); z-index: 4; opacity: 1; pointer-events: none; }
+.polaroid[data-pos="2"] { transform: rotate(-6deg) translate(-16px, 18px) scale(0.94); z-index: 3; opacity: 0.9; pointer-events: none; }
+.polaroid[data-pos="3"] { transform: rotate(3deg) translate(10px, 26px) scale(0.91); z-index: 2; opacity: 0; pointer-events: none; }
+.polaroid[data-pos="4"] { transform: rotate(-3deg) translate(-10px, 32px) scale(0.88); z-index: 1; opacity: 0; pointer-events: none; }
+.polaroid[data-pos="5"] { transform: rotate(5deg) translate(12px, 38px) scale(0.85); z-index: 0; opacity: 0; pointer-events: none; }
+
+.polaroid-photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  /* 528x300 at the stack's 560px cap, roughly 1.75:1. Each card sets its own
+     background-image inline (a gradient today, artwork later); cover here means
+     a slightly off-ratio drawing still fills the slot without distorting. */
+  height: 300px;
+  box-shadow: inset 0 0 0 1px rgba(74, 52, 46, 0.14), inset 0 2px 7px rgba(74, 52, 46, 0.2);
+  background-color: var(--color-cream-soft);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1.1rem;
+  text-align: left;
+  scale: 1;
+  transition: scale var(--dur-swift) var(--ease-swift);
+}
+.polaroid-photo:hover { scale: 1.03; }
+.polaroid-grain {
+  position: absolute;
+  inset: 0;
+  filter: url(#filmGrain);
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.polaroid-index {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-paper);
+  background: rgba(74, 52, 46, 0.55);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.polaroid-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.8vw, 1.7rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.polaroid-summary { color: var(--color-ink-soft); margin-bottom: 1rem; }
+.polaroid-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-sage-dark);
+  padding-bottom: 2px;
+  transition: gap var(--dur-swift) var(--ease-swift);
+}
+.polaroid-cta:hover { gap: 0.75rem; }
+
+.polaroid-controls {
+  display: flex; align-items: center; gap: 1.4rem; margin-top: 2.4rem;
+}
+
+.carousel-dots { display: flex; }
+.carousel-dots button {
+  position: relative; width: 44px; height: 44px; background: none; border: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.carousel-dots button::before {
+  content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--border);
+  transition: background var(--dur-swift) var(--ease-swift), transform var(--dur-swift) var(--ease-swift);
+}
+.carousel-dots button.active::before { background: var(--color-sage-dark); transform: scale(1.3); }
+
+/* ============ case study modal ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 52, 46, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity var(--dur-swift) var(--ease-swift);
+}
+.modal-overlay[hidden] { display: none; }
+.modal-overlay.open { opacity: 1; }
+
+.modal {
+  background-color: var(--color-paper);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.6rem;
+  position: relative;
+  transform: translateY(12px) scale(0.98);
+  transition: transform var(--dur-swift) var(--ease-swift);
+}
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+.modal-close { position: absolute; top: 1.2rem; right: 1.2rem; width: 40px; height: 40px; }
+
+.modal-eyebrow {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-sage-dark);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+#modalBody h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.4vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  padding-right: 2rem;
+}
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+.case-grid h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-sage-dark);
+  margin-bottom: 0.4rem;
+}
+.case-grid p { color: var(--color-ink-soft); font-size: 0.95rem; }
+
+.notes { overflow-x: clip; background-color: var(--color-sage); background-image: var(--texture-grain); background-repeat: repeat; background-size: 200px 200px; }
+.notes .eyebrow { color: var(--color-ink); }
+
+/* links out of a case study, for the projects that have somewhere to go */
+.case-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin: 1.5rem 0 0;
+}
+.case-links a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-sage);
+  padding-bottom: 2px;
+  transition: border-color var(--dur-swift) var(--ease-swift), color var(--dur-swift) var(--ease-swift);
+}
+.case-links a:hover { color: var(--color-sage-dark); border-bottom-color: var(--color-sage-dark); }
+
+/* ============ notes: pinboard ============ *
+ * Dark grid canvas in a bold rounded sage frame, with designer-tool ruler
+ * ticks and crosshairs for atmosphere. Sage stands in for the reference's
+ * coral, since red isn't one of the three approved hues. */
+.corkboard {
+  position: relative;
+  min-height: 520px;
+  border-radius: 26px;
+  border: 9px solid var(--color-ink);
+  background-color: var(--color-ink);
+  background-image:
+    linear-gradient(rgba(250, 245, 234, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 245, 234, 0.08) 1px, transparent 1px),
+    var(--texture-grain-light);
+  background-size: 32px 32px, 32px 32px, 200px 200px;
+  overflow: hidden;
+  padding: 42px 24px 24px 46px;
+}
+
+.pinboard-ruler {
+  position: absolute;
+  color: var(--cream-on-ink);
+  font-size: 0.7rem;
+  font-family: var(--font-body);
+  pointer-events: none;
+}
+.pinboard-ruler--top { top: 10px; left: 46px; right: 24px; height: 20px; }
+.pinboard-ruler--left { top: 42px; bottom: 24px; left: 12px; width: 24px; }
+.pinboard-ruler .tick {
+  position: absolute;
+  opacity: 0.55;
+}
+.pinboard-ruler--top .tick { top: 0; transform: translateX(-50%); }
+.pinboard-ruler--left .tick { left: 0; transform: translateY(-50%); }
+
+.pinboard-cross {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  color: rgba(250, 245, 234, 0.3);
+  pointer-events: none;
+}
+.pinboard-cross::before, .pinboard-cross::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+}
+.pinboard-cross::before { top: 50%; left: 0; width: 100%; height: 1px; transform: translateY(-50%); }
+.pinboard-cross::after { left: 50%; top: 0; height: 100%; width: 1px; transform: translateX(-50%); }
+
+.sticky {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: rotate(var(--r));
+  width: 172px;
+  min-height: 104px;
+  padding: 1.3rem 1.1rem 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  border-radius: 14px;
+  border: 1px solid rgba(74, 52, 46, 0.08);
+  background-color: var(--color-paper);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  box-shadow: 0 16px 28px -12px rgba(0, 0, 0, 0.5);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: box-shadow var(--dur-swift) ease, transform var(--dur-swift) var(--ease-swift);
+}
+.sticky:nth-child(even) { background-color: var(--color-cream-soft); }
+.sticky:hover { scale: 1.04; }
+.sticky:active { cursor: grabbing; box-shadow: 0 22px 34px -12px rgba(0, 0, 0, 0.55); }
+.sticky.is-picked { z-index: 60; box-shadow: 0 26px 38px -12px rgba(0, 0, 0, 0.55); outline: 2px dashed var(--color-sage); outline-offset: 3px; }
+
+.sticky::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+.sticky[data-pin="sage"]::before { background: radial-gradient(circle at 35% 32%, #fff, transparent 45%), var(--color-sage-dark); }
+.sticky[data-pin="terracotta"]::before { background: radial-gradient(circle at 35% 32%, #fff, transparent 45%), var(--color-terracotta); }
+
+/* ============ connect ============ */
+.connect {
+  overflow-x: clip;
+  padding-bottom: 9rem;
+  background-color: var(--color-cream);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+.connect-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6.4vw, 4.2rem);
+  line-height: 1.08;
+  margin-bottom: 3rem;
+  max-width: 16ch;
+}
+
+/* ---- the postcard ---- *
+ * Message on the left, address side on the right, the way a real postcard is
+ * laid out. Sending hands off to the visitor's mail client via mailto, so
+ * there is always the copy-the-address fallback underneath. */
+.postcard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 0;
+  max-width: 880px;
+  border: 2.5px solid var(--color-ink);
+  border-radius: 4px;
+  background-color: var(--color-paper);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  box-shadow: 0 18px 38px -20px rgba(74, 52, 46, 0.45);
+  rotate: -0.6deg;
+  /* no overflow:hidden: the clipped photo hangs off the right edge on purpose.
+     The 4px radius does not need clipping, and the postmark stays inside. */
+}
+
+.postcard-message { padding: 2rem 2.1rem; }
+.postcard-address {
+  position: relative;
+  padding: 2rem 2.1rem;
+  border-left: 2px dashed var(--border);
+}
+
+.postcard-prompt {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.9rem;
+}
+
+/* rectangles with a left accent, matching the tags used elsewhere */
+.reason-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.3rem; }
+.reason-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.75rem 0.4rem 0.65rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--color-sage-dark);
+  background: transparent;
+  color: var(--color-ink);
+  min-height: 44px;
+  transition: background var(--dur-swift) var(--ease-swift), border-color var(--dur-swift) var(--ease-swift);
+}
+.reason-tag:hover { background: var(--color-sage-soft); }
+.reason-tag[aria-pressed="true"] {
+  background: var(--color-sage);
+  border-left-color: var(--color-ink);
+}
+
+.postcard-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  margin-bottom: 0.4rem;
+}
+
+.postcard-note {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  padding: 0.6rem 0.7rem;
+  border: none;
+  border-radius: 2px;
+  /* no native grip: it breaks the paper illusion. script.js grows the card
+     instead, snapping to whole ruled lines. */
+  resize: none;
+  overflow: hidden;
+  /* ruled paper, so typing feels like writing on the card */
+  background-image: repeating-linear-gradient(
+    to bottom, transparent 0 calc(1.7em - 1px), var(--border) calc(1.7em - 1px) 1.7em);
+  background-color: transparent;
+  /* nudge the ruling down by the top padding, or the lines land mid-text and
+     read as strikethrough rather than as lines to write on */
+  background-position: 0 0.6rem;
+}
+.postcard-note:focus { outline: 2px solid var(--color-sage-dark); outline-offset: 2px; }
+.postcard-note::placeholder { color: var(--color-ink-faint); }
+
+.postcard-send { margin-top: 1.2rem; }
+
+.postcard-status {
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: var(--color-ink-soft);
+  min-height: 1.2em;
+}
+
+/* stamp + cancellation travel together: the postmark is positioned against the
+   stamp, not the card, so it keeps landing on the stamp at every breakpoint
+   instead of drifting into it. */
+.postcard-franking {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.6rem;
+  width: 74px;
+  line-height: 0;
+}
+.postcard-stamp {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  rotate: 3deg;
+  opacity: 0.85;
+  transition: opacity 0.3s var(--ease-swift);
+}
+/* the stamp steps back once cancelled, so the ink over it stays readable */
+.postcard.is-posted .postcard-stamp { opacity: 0.4; }
+
+/* the postmark only lands once the card has been sent */
+.postcard-postmark {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  translate: -50% -50%;
+  rotate: -14deg;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  color: var(--color-sage-dark);
+  border: 2.5px solid var(--color-sage-dark);
+  border-radius: 4px;
+  padding: 0.05rem 0.4rem;
+  opacity: 0;
+  scale: 1.6;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-swift), scale 0.3s var(--ease-swift);
+}
+.postcard.is-posted .postcard-postmark { opacity: 0.9; scale: 1; }
+
+/* A print paperclipped to the card, hanging off the right edge. It sits at the
+   BOTTOM right, not the top: the lotus stamp owns the top right corner and the
+   two collided there at every desktop width. The card is flush with the left of
+   its container, so the right edge is the only side with room to overhang. */
+.postcard-snap {
+  position: absolute;
+  bottom: -30px;
+  /* The card keeps a 37px text-free strip at its right edge; everything past
+     that has to hang off, or the print sits on top of the link URLs. Overhang
+     = width - 37, retuned per tier as the room beside the card runs out. */
+  right: -181px;
+  z-index: 3;
+  width: 200px;
+  rotate: 4deg;
+  color: var(--color-ink);
+}
+.postcard-snap img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  padding: 7px 7px 16px;
+  background: var(--color-paper);
+  border: 1px solid rgba(74, 52, 46, 0.18);
+  border-radius: 2px;
+  box-shadow: 0 14px 26px -10px rgba(74, 52, 46, 0.62);
+}
+.postcard-clip {
+  position: absolute;
+  top: -30px;
+  left: 24px;
+  width: 34px;
+  height: 82px;
+  rotate: -7deg;
+  filter: drop-shadow(0 2px 2px rgba(74, 52, 46, 0.4));
+}
+
+.postcard-to {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  margin-bottom: 0.2rem;
+}
+.postcard-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  max-width: 60%;
+}
+
+.postcard-links { display: flex; flex-direction: column; gap: 0.2rem; }
+.postcard-links a,
+.postcard-copy {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  padding: 0.5rem 0.2rem;
+  border-bottom: 1px solid var(--border);
+  min-height: 44px;
+  transition: color var(--dur-swift) var(--ease-swift), padding-left var(--dur-swift) var(--ease-swift);
+}
+.postcard-links a:hover,
+.postcard-copy:hover { color: var(--color-sage-dark); padding-left: 0.6rem; }
+
+.postcard-link-sub {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--color-ink-faint);
+}
+
+@media (max-width: 760px) {
+  .postcard { grid-template-columns: 1fr; rotate: 0deg; }
+  .postcard-address { border-left: none; border-top: 2px dashed var(--border); }
+  .postcard-name { max-width: 100%; }
+  /* stacked: only 20px beside the card and 34px below the links,
+     so the print hangs below the card instead of beside it */
+  .postcard-snap { right: -14px; bottom: -130px; width: 130px; }
+  .postcard-clip { top: -22px; left: 17px; width: 25px; height: 58px; }
+  .postcard-franking { width: 58px; }
+  .postcard-name { padding-right: 76px; }
+  .postcard-postmark { font-size: 0.88rem; border-width: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .postcard-postmark { transition: opacity 0.2s linear; scale: 1; }
+}
+
+/* ============ skills page ============ *
+ * Its own page rather than another section: the single-page scroll was already
+ * long, and skills are the thing a recruiter wants to jump straight to. Sheets
+ * of paper on the cream ground, same language as the rest of the site. */
+.skills-page {
+  position: relative;
+  padding: calc(var(--nav-h) + 3.5rem) 0 7rem;
+  background-color: var(--color-cream);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.skills-head { margin-bottom: 3rem; }
+
+/* Two up. With the descriptions gone the sheets are short and similar in
+   height, so a 2x2 grid balances where three columns left holes, and it puts
+   the AI sheet top right where the eye lands. */
+.skill-sheets {
+  display: grid;
+  /* min() on the floor: a bare minmax(440px,...) keeps a 440px track on a
+     375px phone, and .skills-page's overflow-x:clip then silently cut the
+     sheet off rather than showing a scrollbar. */
+  grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr));
+  gap: 1.8rem;
+  align-items: start;
+}
+
+.skill-sheet {
+  padding: 1.7rem 1.8rem 1.9rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 12px;
+  background-color: var(--color-paper);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  box-shadow: 0 16px 34px -20px rgba(74, 52, 46, 0.5);
+}
+.skill-sheet:nth-child(odd) { rotate: -0.4deg; }
+.skill-sheet:nth-child(even) { rotate: 0.5deg; }
+
+.skill-sheet header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 2px dashed var(--border);
+}
+.skill-sheet header img {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  padding: 0.3rem;
+  background: var(--color-cream);
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+}
+.skill-sheet h2 {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+/* the sheets list what she works with; the projects carry the evidence */
+.skill-list { display: grid; gap: 0.7rem; }
+.skill-list li {
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.4;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--color-sage-dark);
+}
+
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.skill-tags li {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--color-sage-dark);
+  border-radius: 3px;
+  background: var(--color-sage-soft);
+}
+
+/* the AI sheet is the one most people are scanning for, so it is marked */
+.skill-sheet--ai { border-color: var(--color-sage-dark); box-shadow: 0 16px 34px -18px rgba(169, 187, 82, 0.55); }
+.skill-sheet--ai header { border-bottom-color: var(--color-sage-dark); }
+.skill-sheet--ai header img { background: var(--color-sage-soft); }
+
+.skills-back { margin-top: 3rem; }
+.skills-back a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-sage);
+  transition: color var(--dur-swift) var(--ease-swift), border-color var(--dur-swift) var(--ease-swift);
+}
+.skills-back a:hover { color: var(--color-sage-dark); border-bottom-color: var(--color-sage-dark); }
+
+/* the current page gets the wobbly circle without needing a hover */
+.nav-links a[aria-current="page"]::after { opacity: 1; transform: scale(1) rotate(-2deg); }
+
+@media (max-width: 760px) {
+  .skills-page { padding-top: calc(var(--nav-h) + 2rem); }
+  .skill-sheet { padding: 1.4rem 1.3rem 1.5rem; }
+  .skill-sheet h2 { font-size: 1.45rem; }
+  .skill-sheets { gap: 1.3rem; }
+}
+
+/* ============ footer ============ */
+.site-footer {
+  background-color: var(--color-cream);
+  background-image: var(--texture-grain);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  /* full width so the cream reaches the frame, with the content still centred
+     on the same container width as every section above it */
+  padding: 2.5rem max(2.5rem, calc((100% - var(--container)) / 2));
+  border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--color-ink-soft);
+}
+.site-footer a { font-weight: 700; color: var(--color-ink); }
+/* "Back to top" was a 90x20 target */
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.site-footer a:hover { color: var(--color-sage-dark); }
+
+/* Tablet portrait is narrow but tall, so 46vw left the drawing small and the
+   hero looking empty. The folder still has to clear the container: at 58vw on
+   an 820px screen its right edge lands at 674 inside a 712px column. */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .hero-figure-wrap { width: max(280px, min(58vw, 560px, calc((100vh - 325px) * 1.396))); }
+}
+
+/* ---- touch sizing ---- *
+ * Below 1025 every visitor is on a phone or tablet. The micro-labels that read
+ * fine at arm's length on a monitor were landing at 10.9-12.8px in the hand, so
+ * the ones carrying real information (URLs, tags, button text) come up; the
+ * purely decorative ruler ticks stay where they are. The width goes to 1200
+ * because an iPad in landscape is 1180px wide and still a thumb; the pointer
+ * query catches any touch screen wider than that. */
+@media (max-width: 1200px), (pointer: coarse) {
+  .eyebrow,
+  .hero-eyebrow { font-size: 0.83rem; }
+  .tag { font-size: 0.82rem; }
+  .reason-tag { font-size: 0.86rem; }
+  .postcard-link-sub { font-size: 0.82rem; }
+  .postcard-to { font-size: 0.78rem; }
+  .intro-dialog-eyebrow { font-size: 0.82rem; }
+  .journey-sub-date { font-size: 0.72rem; }
+  .polaroid-index { font-size: 0.83rem; }
+}
+
+/* ============================================================
+   Responsive breakpoints. Re-verify at 1440 / 820 / 360 widths
+   after any layout change, and re-check journey icon alignment
+   against the curved path (decorative, not pixel-perfect).
+   ============================================================ */
+
+/* the sideways fan needs roughly 1350px before all three cards clear the edges,
+   so the stacked layout takes over well above the doodle cutoff */
+/* The palm layout used to need 1350px because three cards fanned sideways out
+   of the folder. They were replaced by a centred dialog, so the folder can stay
+   in her hand right down to tablet width; below that there is genuinely not
+   enough room and it moves above her. */
+@media (max-width: 760px) {
+  .hero { align-items: center; }
+  .hero-figure-wrap {
+    display: flex;
+    flex-direction: column;
+    width: min(76vw, 420px);
+    margin: 0 auto;
+  }
+  .folder-stage {
+    order: -1;
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: min(74vw, 320px);
+    margin: 0 auto 1.25rem;
+  }
+}
+
+@media (max-width: 1180px) {
+  .case-grid { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* Below 1281 there is no room beside the card: at 1200 only 106px sits between
+   the card and the section edge, at 820 just 27px, and a print big enough to be
+   worth showing would cover the link URLs and run past the section. So it hangs
+   under the card instead, in the 103px of clear space below the last link.
+   Bounded above 760px so it does not out-rank the stacked-card rule earlier. */
+@media (max-width: 1280px) and (min-width: 761px) {
+  .postcard-snap { right: -12px; bottom: -100px; width: 150px; }
+  .postcard-clip { top: -24px; left: 19px; width: 28px; height: 66px; }
+}
+
+@media (max-width: 1024px) {
+  .timeline__path { display: none; }
+  .timeline__spine { display: block; left: 28px; }
+
+  .journey-item { grid-template-columns: 56px 1fr; }
+  .journey-icon { grid-column: 1 !important; grid-row: 1; }
+  .journey-text { grid-column: 2 !important; text-align: left !important; margin: 0 !important; }
+  .side-left .tag-row { justify-content: flex-start; }
+  .side-left .journey-sub {
+    padding-left: 1.15rem; padding-right: 0;
+    border-left: 2px dashed var(--color-sage-dark); border-right: none;
+    text-align: left;
+  }
+  .side-left .journey-sub li { flex-direction: row; }
+}
+
+@media (max-width: 960px) {
+  :root { --frame: 12px; --frame-side: 12px; }
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+
+  section.section { padding: 5.5rem 0; }
+  .section-inner { padding: 0 1.8rem; }
+
+
+  /* no room beside the figure at this width, and the banner overhangs the space
+     directly above her, so the CTAs move to the open area under the nav.
+     left/right rather than left+translate, or the shrink-to-fit width is capped
+     at half the screen and the two buttons wrap onto separate lines. */
+  .hero-actions {
+    left: 0;
+    right: 0;
+    bottom: auto;
+    top: calc(var(--nav-h) + 1.5rem);
+    justify-content: center;
+  }
+  .hero-avatar { width: max(280px, min(clamp(320px, 88vw, 640px), calc(233vh - 760px))); }
+  .hero-board { padding: 2.2rem 2.2rem 3.4rem; }
+  .hero-board-pos { bottom: calc(50.6% - 55px); }
+  .hero-board-tagline { font-size: 0.88rem; }
+}
+
+@media (max-width: 780px) {
+  .fortune-tab {
+    top: auto;
+    bottom: 1.1rem;
+    right: 1.1rem;
+    transform: none;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-ink);
+    justify-content: center;
+  }
+  .fortune-tab:hover { transform: scale(1.06); }
+  .fortune-label { display: none; }
+}
+
+@media (max-width: 600px) {
+  :root { --nav-h: 72px; --frame: 8px; --frame-side: 8px; }
+  section.section { padding: 4rem 0; }
+  .section-inner { padding: 0 1.25rem; }
+  .site-nav { padding: 0 1.25rem; }
+  .nav-logo { font-size: 1.6rem; }
+
+  .scroll-hint-left, .scroll-hint-right { display: none; }
+
+  .hero-pin-wrap { height: 108vh; }
+  /* bottom padding still has to clear the cloth hem at this width, and the
+     taller box lifts the hem, so the banner drops to stay on her hands */
+  .hero-board { padding: 1.8rem 1.6rem 3rem; }
+  .hero-board-pos { bottom: calc(50.6% - 56px); }
+
+  .polaroid-stack { min-height: 560px; }
+  .polaroid { padding: 0.9rem 0.9rem 1.3rem; }
+  .polaroid-photo { height: 150px; }
+
+  .modal { padding: 1.8rem; max-height: 80vh; }
+
+  .corkboard { min-height: 620px; border-width: 6px; border-radius: 18px; padding: 34px 16px 16px 34px; }
+  .pinboard-ruler--top { left: 34px; }
+  .pinboard-ruler--left { top: 34px; }
+  .sticky { width: 130px; min-height: 88px; font-size: 1rem; padding: 1rem 0.8rem 0.8rem; border-radius: 10px; }
+
+  .site-footer { flex-direction: column; align-items: flex-start; text-align: left; }
+}
+
+@media (max-width: 380px) {
+  .hero-board-name { font-size: 1.5rem; }
+}
+
+/* ============================================================
+   Fortune cookie easter-egg page
+   Cookie colors here are the one deliberate exception to the
+   three-hue rule, since it is a literal drawn object, not UI chrome.
+   ============================================================ */
+.fortune-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* the body ground here is ink, and these inherited ink defaults were landing
+     at a contrast ratio of 1.0: the heading, hint and back link were the exact
+     same colour as what sat behind them. */
+  color: var(--color-cream);
+}
+
+.fortune-back {
+  position: fixed;
+  top: 1.8rem;
+  left: 1.8rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.6rem 1rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: background var(--dur-swift) var(--ease-swift);
+}
+.fortune-back { color: var(--color-cream); }
+.fortune-back:hover { background: var(--color-sage-soft); color: var(--color-ink); }
+
+.fortune-main {
+  max-width: 560px;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fortune-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  margin-bottom: 0.8rem;
+}
+
+.fortune-heading { margin-bottom: 3rem; }
+
+/* The cookie is Nash's own drawing, cut into two halves along the fold she
+   drew. Both halves are full-canvas PNGs stacked at the same position, so at
+   rest they reconstruct the original exactly and the seam is invisible. */
+.cookie-wrap {
+  position: relative;
+  width: min(300px, 62vw);
+  aspect-ratio: 1 / 1;
+  margin-bottom: 1.6rem;
+}
+
+.cookie-piece {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+}
+.cookie-piece--left  { transform-origin: 62% 58%; }
+.cookie-piece--right { transform-origin: 38% 58%; }
+
+/* Each half winds briefly toward the middle before it snaps outward, so the
+   break has a moment of tension rather than just sliding apart. */
+.cookie-wrap.cracked .cookie-piece--left  { animation: break-left  0.62s var(--ease-swift) forwards; }
+.cookie-wrap.cracked .cookie-piece--right { animation: break-right 0.62s var(--ease-swift) forwards; }
+
+@keyframes break-left {
+  0%   { translate: 0 0;        rotate: 0deg; }
+  14%  { translate: 2.5% -1%;   rotate: 2.5deg; }
+  100% { translate: -19% 7%;    rotate: -17deg; }
+}
+@keyframes break-right {
+  0%   { translate: 0 0;        rotate: 0deg; }
+  14%  { translate: -2.5% -1%;  rotate: -2.5deg; }
+  100% { translate: 17% 5%;     rotate: 14deg; }
+}
+
+/* crumbs off the break line */
+.crumb {
+  position: absolute;
+  left: 46%;
+  top: 56%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f4bc84;          /* sampled from the cookie itself */
+  border: 1.5px solid var(--color-ink);
+  opacity: 0;
+  pointer-events: none;
+}
+.cookie-wrap.cracked .crumb {
+  animation: crumb-fly 0.72s var(--ease-swift) var(--cd, 0s) forwards;
+}
+
+@keyframes crumb-fly {
+  0%   { opacity: 0; translate: 0 0; rotate: 0deg; scale: 0.35; }
+  18%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; translate: var(--dx) var(--dy); rotate: var(--cr); scale: 1; }
+}
+
+.fortune-slip {
+  /* 100%, not vw: vw ignores .fortune-main's 2rem padding and overflowed by 9px at 390 */
+  width: min(420px, 100%);
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.4rem;
+  padding: 1.1rem 1.3rem;
+  background: var(--color-paper);
+  border: 1.5px dashed var(--color-ink);
+  border-radius: 6px;
+  rotate: -1.2deg;
+  opacity: 0;
+  translate: 0 -14px;
+  transition: opacity var(--dur-swift) var(--ease-swift) 0.18s,
+              translate var(--dur-swift) var(--ease-swift) 0.18s;
+}
+.fortune-slip p {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  color: var(--color-ink);
+}
+
+.cookie-wrap.cracked ~ .fortune-slip { opacity: 1; translate: 0 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-wrap.cracked .cookie-piece--left,
+  .cookie-wrap.cracked .cookie-piece--right { animation: none; }
+  .cookie-wrap.cracked .cookie-piece--left  { translate: -19% 7%; rotate: -17deg; }
+  .cookie-wrap.cracked .cookie-piece--right { translate: 17% 5%;  rotate: 14deg; }
+  .cookie-wrap.cracked .crumb { animation: none; }
+  .fortune-slip { transition: opacity 0.2s linear; }
+}
+
+@media (max-width: 480px) {
+  .fortune-back { top: 1rem; left: 1rem; padding: 0.5rem 0.9rem; font-size: 0.88rem; }
+}

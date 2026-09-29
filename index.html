@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nakshatra Kadethankar. Product, Program, Supply Chain</title>
+<meta name="description" content="Nakshatra Kadethankar. Engineering Management grad student at Purdue exploring Product, Program and Supply Chain.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF5EA">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- filter used by .polaroid-grain for the film-grain texture overlay -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="filmGrain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0"/>
+  </filter>
+</svg>
+
+<!-- stamp strips down both frame gutters -->
+<div class="frame-strip frame-strip--left" aria-hidden="true"></div>
+<div class="frame-strip frame-strip--right" aria-hidden="true"></div>
+
+<!-- scroll progress indicator -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollProgressBar"></span></div>
+
+<!-- ============ NAV ============ -->
+<header class="site-nav" id="siteNav">
+  <a href="#home" class="nav-logo" aria-label="Nakshatra Kadethankar, back to top"><img src="assets/face.svg" alt="" aria-hidden="true"></a>
+
+  <nav class="nav-links" id="navLinks">
+    <a href="#journey" data-smooth-scroll>Journey<img class="nav-doodle" src="assets/illustrations/nav-journey.png" alt="" aria-hidden="true"></a>
+    <a href="#work" data-smooth-scroll>Work<img class="nav-doodle" src="assets/illustrations/nav-work.png" alt="" aria-hidden="true"></a>
+    <a href="skills.html">Skills<img class="nav-doodle" src="assets/illustrations/laptop.png" alt="" aria-hidden="true"></a>
+    <a href="#values" data-smooth-scroll>Values<img class="nav-doodle" src="assets/illustrations/nav-notes.png" alt="" aria-hidden="true"></a>
+    <a href="#connect" data-smooth-scroll>Connect<img class="nav-doodle" src="assets/illustrations/nav-connect.png" alt="" aria-hidden="true"></a>
+  </nav>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ============ MOBILE NAV OVERLAY ============ -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#journey" class="mobile-link">Journey<img class="mobile-doodle" src="assets/illustrations/nav-journey.png" alt="" aria-hidden="true"></a>
+  <a href="#work" class="mobile-link">Work<img class="mobile-doodle" src="assets/illustrations/nav-work.png" alt="" aria-hidden="true"></a>
+  <a href="skills.html" class="mobile-link">Skills<img class="mobile-doodle" src="assets/illustrations/laptop.png" alt="" aria-hidden="true"></a>
+  <a href="#values" class="mobile-link">Values<img class="mobile-doodle" src="assets/illustrations/nav-notes.png" alt="" aria-hidden="true"></a>
+  <a href="#connect" class="mobile-link">Connect<img class="mobile-doodle" src="assets/illustrations/nav-connect.png" alt="" aria-hidden="true"></a>
+</div>
+
+<!-- hidden easter egg tab, intentionally not in main nav -->
+<a href="fortune.html" class="fortune-tab" id="fortuneTab" aria-label="A little something extra">
+  <span class="fortune-emoji" aria-hidden="true">🥠</span>
+  <span class="fortune-label">Feeling lucky?</span>
+</a>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" class="hero">
+    <div class="hero-inner">
+
+      <div class="hero-intro">
+        <p class="hero-eyebrow reveal">Product &middot; Program &middot; Supply Chain</p>
+        <h1 class="hero-title reveal">Hi, I'm Nakshatra<span class="accent-dot">.</span></h1>
+      </div>
+
+      <div class="hero-figure-wrap reveal">
+        <img class="hero-figure" src="assets/illustrations/hero-figure.png"
+             alt="Hand-drawn illustration of Nakshatra holding a mug, one hand held out">
+
+        <!-- folder sits in her outstretched palm (measured at 44.6% down the art) -->
+        <div class="folder-stage">
+
+          <button class="folder" id="introFolder" aria-expanded="false" aria-controls="introOverlay">
+            <!-- shapes are hand-wobbled paths rather than CSS rectangles, so the
+                 edges read as brush strokes next to her drawing -->
+            <span class="folder-back" aria-hidden="true">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="none">
+                <path d="M16,30 C12,16 22,8 34,9 L366,6 C380,5 390,14 389,28 L393,268 C394,283 384,291 370,290 L32,293 C18,294 8,285 9,271 Z"
+                  vector-effect="non-scaling-stroke"/>
+              </svg>
+            </span>
+            <span class="folder-front" aria-hidden="true">
+              <svg viewBox="0 0 400 264" preserveAspectRatio="none">
+                <path d="M6,34 C68,20 132,38 198,27 C264,16 332,33 394,21 L397,230 C398,247 388,256 374,255 L26,258 C12,259 3,250 4,236 Z"
+                  vector-effect="non-scaling-stroke"/>
+              </svg>
+            </span>
+            <span class="folder-label">
+              <span class="folder-name">About me</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <span class="scroll-hint scroll-hint-right" aria-hidden="true">
+      <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><path d="M7 1v16M1 11l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+  </section>
+
+  <!-- ============ JOURNEY ============ -->
+  <section id="journey" class="section journey">
+    <img class="deco" src="assets/illustrations/checklist.png" alt="" aria-hidden="true"
+           style="--x:6%;--y:79%;--size:150px;--r:6deg;--op:0.5;">
+    <img class="deco" src="assets/illustrations/camera.png" alt="" aria-hidden="true"
+           style="--x:76%;--y:43%;--size:190px;--r:-7deg;--op:0.5;">
+    <img class="deco" src="assets/illustrations/grad-cap.png" alt="" aria-hidden="true"
+           style="--x:80%;--y:8%;--size:172px;--r:9deg;--op:0.55;">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow reveal">Where I've been</p>
+        <h2 class="section-title reveal">The Journey</h2>
+      </div>
+
+      <div class="journey-path">
+        <!-- Whimsical curvy trail, not a literal map. Approximate alignment only: re-check
+             this SVG against the flex-positioned icons whenever the layout changes. -->
+        <svg class="timeline__path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M50,2 Q 58,10 50,18 Q 42,26 50,34 Q 58,42 50,50 Q 42,58 50,66 Q 58,74 50,82 Q 42,90 50,98"
+            fill="none" stroke="#4A342E" stroke-width="0.5" stroke-dasharray="1.6 2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="timeline__spine" aria-hidden="true"></div>
+
+        <div class="journey-item side-left">
+          <div class="journey-icon" aria-hidden="true">
+            <img src="assets/illustrations/plant.svg" alt="" width="64" height="64">
+          </div>
+          <div class="journey-text">
+            <p class="timeline-date">Aug 2020 to May 2024</p>
+            <h3>B.Tech, Instrumentation and Control Engineering, Cummins College of Engineering for Women</h3>
+            <p>Four years of sensors, control loops and lab reports in Pune, with coursework in data science and machine learning on the side. Graduated at a 3.5. Two things ran alongside the degree:</p>
+            <ul class="journey-sub">
+              <li>
+                <img class="journey-sub-icon" src="assets/illustrations/flask.svg" alt="" width="64" height="64" aria-hidden="true">
+                <div class="journey-sub-body">
+                  <h4>Co-founder, Biomedical Club</h4>
+                  <p>Started the club from scratch at Cummins College, which is where I first
+                    found out how much of running anything is getting people into a room.</p>
+                </div>
+              </li>
+              <li>
+                <img class="journey-sub-icon" src="assets/illustrations/coins.svg" alt="" width="64" height="64" aria-hidden="true">
+                <div class="journey-sub-body">
+                  <h4>Finance and Economics Club</h4>
+                  <p>The counterweight to an engineering degree, and where the interest in how
+                    decisions get costed and argued for started.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="tag-row"><span class="tag">Instrumentation</span><span class="tag">Control Systems</span><span class="tag">Student Leadership</span></div>
+          </div>
+        </div>
+
+        <div class="journey-item side-right">
+          <div class="journey-icon" aria-hidden="true">
+            <img src="assets/illustrations/gear.svg" alt="" width="64" height="64">
+          </div>
+          <div class="journey-text">
+            <p class="timeline-date">Jul 2023 to Jan 2024</p>
+            <h3>Process Systems and Solutions Intern, Emerson Export Engineering Center</h3>
+            <p>Wrote technical requirements and validation documentation for 15 industrial automation projects, and standardized PLC templates across a 10 engineer team, which cut close to three days off each project.</p>
+            <div class="tag-row"><span class="tag">Automation</span><span class="tag">Requirements</span></div>
+          </div>
+        </div>
+
+        <div class="journey-item side-left">
+          <div class="journey-icon" aria-hidden="true">
+            <img src="assets/illustrations/chart.svg" alt="" width="64" height="64">
+          </div>
+          <div class="journey-text">
+            <p class="timeline-date">Jul 2024 to Jul 2025</p>
+            <h3>Product Engineer, Honeywell Automation India</h3>
+            <p>A full year in industry and my first real program: an IoT building automation platform rolled out across more than 30 facilities globally, tracked in JIRA with weekly syncs across engineering, operations and finance. I built the Power BI and Tableau dashboards leadership actually looked at, and a predictive maintenance capability that cut customer emergency calls by 22 percent.</p>
+            <div class="tag-row"><span class="tag">Program Management</span><span class="tag">IoT</span><span class="tag">Agile</span><span class="tag">Dashboards</span></div>
+          </div>
+        </div>
+
+        <div class="journey-item side-right">
+          <div class="journey-icon" aria-hidden="true">
+            <img src="assets/illustrations/cap.svg" alt="" width="64" height="64">
+          </div>
+          <div class="journey-text">
+            <p class="timeline-date">Aug 2025 to May 2027 (expected)</p>
+            <h3>Master of Engineering Management, Purdue University</h3>
+            <p>Supply chain, operations and technical product management, at a 4.0. This is where the engineering work started turning into planning and product work. Three things ran alongside the coursework:</p>
+            <ul class="journey-sub">
+              <li>
+                <img class="journey-sub-icon" src="assets/illustrations/bulb.svg" alt="" width="64" height="64" aria-hidden="true">
+                <div class="journey-sub-body">
+                  <p class="journey-sub-date">Jan 2026 to May 2026</p>
+                  <h4>Product Consultant, Bayer and KUVIA AI</h4>
+                  <p>Customer discovery with 12 oncology stakeholders inside a six person team, written up as a requirements document and a go or no go call delivered to leadership at both companies.</p>
+                </div>
+              </li>
+              <li>
+                <img class="journey-sub-icon" src="assets/illustrations/chat.svg" alt="" width="64" height="64" aria-hidden="true">
+                <div class="journey-sub-body">
+                  <p class="journey-sub-date">Aug 2026 to May 2027</p>
+                  <h4>Teaching Assistant, The Data Mine</h4>
+                  <p>Leading 12 students building GeneChat, an LLM tutor for genetics education that picked up a 2026 American Society of Human Genetics award.</p>
+                </div>
+              </li>
+              <li>
+                <img class="journey-sub-icon" src="assets/illustrations/chart.svg" alt="" width="64" height="64" aria-hidden="true">
+                <div class="journey-sub-body">
+                  <h4>Project Manager, Women in Consulting Club</h4>
+                  <p>Running a project team inside Purdue's Women in Consulting Club, on the
+                    same footing as the client work: scope, owners and a deadline people agree on.</p>
+                </div>
+              </li>
+            </ul>
+            <div class="tag-row"><span class="tag">Supply Chain</span><span class="tag">Operations</span><span class="tag">Product</span></div>
+          </div>
+        </div>
+
+        <div class="journey-item side-left">
+          <div class="journey-icon" aria-hidden="true">
+            <img src="assets/illustrations/boxes.svg" alt="" width="64" height="64">
+          </div>
+          <div class="journey-text">
+            <p class="timeline-date">May 2026 to Aug 2026</p>
+            <h3>Supply Chain Planning Intern, ASML</h3>
+            <p>BOMs, RFQs and constraint based planning inside one of the most complicated supply chains there is, in Wilton, Connecticut. Critical path templates tracking delays across 30 suppliers.</p>
+            <div class="tag-row"><span class="tag">Supply Chain</span><span class="tag">Planning</span><span class="tag">Semiconductors</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK ============ -->
+  <section id="work" class="section work section--brown">
+    <div class="band" aria-hidden="true"></div>
+    <img class="deco" src="assets/illustrations/lightbulb.png" alt="" aria-hidden="true"
+           style="--x:4%;--y:44%;--size:195px;--r:-6deg;--op:0.7;">
+    <img class="deco" src="assets/illustrations/laptop.png" alt="" aria-hidden="true"
+           style="--x:78%;--y:58%;--size:200px;--r:-5deg;--op:0.6;">
+    <img class="deco" src="assets/illustrations/wow.png" alt="" aria-hidden="true"
+           style="--x:81%;--y:9%;--size:162px;--r:8deg;--op:0.65;">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow reveal">Selected work</p>
+        <h2 class="section-title reveal">Projects</h2>
+      </div>
+
+      <div class="polaroid-stage reveal reveal-2">
+        <div class="polaroid-stack" id="polaroidStack">
+
+          <article class="polaroid" data-project="p1" style="--tape:#C9D77E;">
+            <button class="polaroid-photo" type="button" style="background-image:url('assets/photos/case-boeing.jpg');" data-open-modal="p1" aria-label="Open case study: Boeing 737 MAX Supply Chain Strategy">
+              <span class="polaroid-grain" aria-hidden="true"></span>
+              <span class="polaroid-index">01 / 05</span>
+            </button>
+            <div class="polaroid-caption">
+              <h3 class="polaroid-title">Boeing 737 MAX Supply Chain Strategy</h3>
+              <p class="polaroid-summary">Where a capped production rate and a long supplier network tie up billions in working capital, and what it would take to unlock it.</p>
+              <button class="polaroid-cta" type="button" data-open-modal="p1">View case study</button>
+            </div>
+          </article>
+
+          <article class="polaroid" data-project="p2" style="--tape:#4A342E;">
+            <button class="polaroid-photo" type="button" style="background-image:url('assets/photos/case-kuvia.jpg');" data-open-modal="p2" aria-label="Open case study: An Oncology Product, Go or No Go">
+              <span class="polaroid-grain" aria-hidden="true"></span>
+              <span class="polaroid-index">02 / 05</span>
+            </button>
+            <div class="polaroid-caption">
+              <h3 class="polaroid-title">An Oncology Product, Go or No Go</h3>
+              <p class="polaroid-summary">Twelve stakeholder interviews turned into a requirements doc and a recommendation Bayer and KUVIA could actually decide on.</p>
+              <button class="polaroid-cta" type="button" data-open-modal="p2">View case study</button>
+            </div>
+          </article>
+
+         
+
+          <article class="polaroid" data-project="p4" style="--tape:#4A342E;">
+            <button class="polaroid-photo" type="button" style="background-image:url('assets/photos/case-asml.jpg');" data-open-modal="p4" aria-label="Open case study: Constraint Based Planning at ASML">
+              <span class="polaroid-grain" aria-hidden="true"></span>
+              <span class="polaroid-index">03 / 05</span>
+            </button>
+            <div class="polaroid-caption">
+              <h3 class="polaroid-title">Constraint Based Planning at ASML</h3>
+              <p class="polaroid-summary">Concurrent programs competing for the same materials, and bottlenecks that kept surfacing too late to do anything about.</p>
+              <button class="polaroid-cta" type="button" data-open-modal="p4">View case study</button>
+            </div>
+          </article>
+
+         
+
+          <article class="polaroid" data-project="p6" style="--tape:#4A342E;">
+            <button class="polaroid-photo" type="button" style="background-image:url('assets/photos/case-spotify.jpg');" data-open-modal="p6" aria-label="Open case study: Aux Cord Diagnosis">
+              <span class="polaroid-grain" aria-hidden="true"></span>
+              <span class="polaroid-index">04 / 05</span>
+            </button>
+            <div class="polaroid-caption">
+              <h3 class="polaroid-title">Aux Cord Diagnosis</h3>
+              <p class="polaroid-summary">A Spotify login, your real top tracks, and Claude writing you a mock medical report about your taste in music.</p>
+              <button class="polaroid-cta" type="button" data-open-modal="p6">View case study</button>
+            </div>
+          </article>
+
+
+          <article class="polaroid" data-project="p7" style="--tape:#C9D77E;">
+            <button class="polaroid-photo" type="button" style="background-image:url('assets/photos/case-portfolio.jpg');" data-open-modal="p7" aria-label="Open case study: This Portfolio">
+              <span class="polaroid-grain" aria-hidden="true"></span>
+              <span class="polaroid-index">05 / 05</span>
+            </button>
+            <div class="polaroid-caption">
+              <h3 class="polaroid-title">This Portfolio</h3>
+              <p class="polaroid-summary">A site that looks like my sketchbook rather than a template, art directed by me and built by directing an AI.</p>
+              <button class="polaroid-cta" type="button" data-open-modal="p7">View case study</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="polaroid-controls">
+          <button class="icon-btn" id="prevSlide" aria-label="Previous project">
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><path d="M19 7H1M1 7l6-6M1 7l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Project slides"></div>
+          <button class="icon-btn" id="nextSlide" aria-label="Next project">
+            <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><path d="M1 7h18M13 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE STUDY TEMPLATES (cloned into the modal by script.js) ============ -->
+  <template id="project-p1">
+    <p class="modal-eyebrow">Graduate project &middot; Purdue University</p>
+    <h3>Boeing 737 MAX Supply Chain Strategy</h3>
+    <div class="case-grid">
+      <div><h4>Problem</h4><p>The 737 MAX was producing well under demand, with cost and working capital locked up across a supplier network long enough that no single team could see all of it at once.</p></div>
+      <div><h4>Approach</h4><p>I mapped the supply chain end to end to find where sourcing and cost reduction were actually available, rather than where they were assumed to be, and built an improvement strategy around those points.</p></div>
+      <div><h4>Outcome</h4><p>A strategy projecting 6 billion dollars in working capital reduction, with a KPI roadmap toward 52 units a month.</p></div>
+    </div>
+    <div class="tag-row"><span class="tag">Supply Chain Strategy</span><span class="tag">Aerospace</span></div>
+  </template>
+
+  <template id="project-p2">
+    <p class="modal-eyebrow">Product Consultant &middot; Bayer and KUVIA AI</p>
+    <h3>An Oncology Product, Go or No Go</h3>
+    <div class="case-grid">
+      <div><h4>Problem</h4><p>Bayer and KUVIA needed to know whether an AI oncology product was worth building before anyone committed engineering time to it.</p></div>
+      <div><h4>Approach</h4><p>I led customer discovery across 12 oncology stakeholders inside a six person cross functional team, sized the market at 21 billion dollars and benchmarked 8 competitors. Scope kept reopening, so I anchored every decision back to the documented requirements.</p></div>
+      <div><h4>Outcome</h4><p>A product requirements document covering 5 features, plus a clear go or no go recommendation delivered to leadership at both companies.</p></div>
+    </div>
+    <div class="tag-row"><span class="tag">Product Strategy</span><span class="tag">Discovery</span><span class="tag">Healthcare</span></div>
+  </template>
+
+  
+
+  <template id="project-p4">
+    <p class="modal-eyebrow">Supply Chain Planning Intern &middot; ASML</p>
+    <h3>Constraint Based Planning at ASML</h3>
+    <div class="case-grid">
+      <div><h4>Problem</h4><p>Concurrent manufacturing programs were competing for the same materials and the same assembly capacity, and bottlenecks tended to surface after they had already cost time.</p></div>
+      <div><h4>Approach</h4><p>I built and managed the BOMs and RFQs behind sourcing, cost and capacity decisions, then applied constraint based planning to line material availability up against production timelines, including automated suggestions for assembly line bottlenecks nobody had forecast.</p></div>
+      <div><h4>Outcome</h4><p>Scheduling efficiency improved 25 percent across 4 teams running concurrent projects. Critical path templates in Excel and MS Project tracked delays across 30 suppliers, with risk logs and dependency maps that made escalations easy to route.</p></div>
+    </div>
+    <div class="tag-row"><span class="tag">Supply Chain</span><span class="tag">Planning</span><span class="tag">Semiconductors</span></div>
+  </template>
+
+  
+
+  <template id="project-p6">
+    <p class="modal-eyebrow">Side project &middot; Built and shipped</p>
+    <h3>Aux Cord Diagnosis</h3>
+    <div class="case-grid">
+      <div><h4>Problem</h4><p>Most of my work is deciding what gets built and then handing it to someone else. I wanted one thing I had taken the whole way myself, from the front end through the API to something with a live URL.</p></div>
+      <div><h4>Approach</h4><p>Spotify OAuth pulls your real top tracks and audio features, then a prompt sends that pattern to Claude and gets structured JSON back, which the page renders as a mock medical chart. Serverless functions on Vercel, with both API keys held server side so nothing sensitive reaches the browser.</p></div>
+      <div><h4>Outcome</h4><p>Live and working. The interesting part turned out to be the prompt, not the plumbing: early versions just read your artists back to you, which was boring, so I constrained the model to infer the vibe from the pattern and never name a track. That single rule is what made it funny.</p></div>
+    </div>
+    <p class="case-links">
+      <a href="https://aux-cord-diagnosis.vercel.app" target="_blank" rel="noopener">Try it live</a>
+      <a href="https://github.com/nakshatrakadethankar44-create/aux-cord-diagnosis" target="_blank" rel="noopener">Source on GitHub</a>
+    </p>
+    <div class="tag-row"><span class="tag">Spotify API</span><span class="tag">Claude API</span><span class="tag">Vercel</span></div>
+  </template>
+
+  <!-- ============ INTRO DIALOG (opened from the hero folder) ============ -->
+  <div class="intro-overlay" id="introOverlay" hidden>
+    <div class="intro-dialog" id="introDialog" role="dialog" aria-modal="true"
+         aria-labelledby="introDialogTitle">
+    <button class="intro-dialog-close" id="introDialogClose" type="button" aria-label="Close">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <p class="intro-dialog-eyebrow">Inside the folder</p>
+    <h2 class="intro-dialog-title" id="introDialogTitle">Hi, I'm Nash</h2>
+    <dl class="intro-dialog-list">
+    <div>
+    <dt>The short version</dt>
+    <dd>Instrumentation and control engineer by training, now doing Engineering
+    Management at Purdue. I moved toward the planning and product side because
+    that is where the interesting arguments happen.</dd>
+    </div>
+    <div>
+    <dt>What I'm good at</dt>
+    <dd>Holding a program together when it spans four teams and nobody agrees on
+    the deadline. Requirements, BOMs, risk logs, the unglamorous documents that
+    stop things falling over.</dd>
+    </div>
+    <div>
+    <dt>What's next</dt>
+    <dd>A full-time role in Product, Program or Supply Chain where I can own an
+    ambiguous problem end to end. Hardware and health tech interest me most.</dd>
+    </div>
+    </dl>
+    </div>
+  </div>
+
+  <template id="project-p7">
+    <p class="modal-eyebrow">Design and build &middot; 2026</p>
+    <h3>This Portfolio</h3>
+    <div class="case-grid">
+      <div><h4>Problem</h4><p>Every portfolio template makes you look like everyone who used that template. I draw, so I wanted the site to look like my sketchbook: my illustrations, my handwriting, three colours and nothing else.</p></div>
+      <div><h4>Approach</h4><p>I art directed it and built it by directing an AI coding agent. I set the palette, drew the illustrations, decided how each interaction should feel, then reviewed what came back and sent it round again when it was wrong. That review loop is most of the work: the model is fast and confident, and confidently wrong often enough that checking is the job.</p></div>
+      <div><h4>Outcome</h4><p>Plain HTML, CSS and JavaScript. No framework, no build step, no dependencies, and it deploys by dragging a folder. Roughly 400KB of images across the whole site, and it holds up from a 375px phone to a desktop.</p></div>
+    </div>
+    <p class="case-links">
+      <a href="skills.html">The skills behind it</a>
+    </p>
+    <div class="tag-row"><span class="tag">Art Direction</span><span class="tag">AI-Assisted Build</span><span class="tag">HTML, CSS and JS</span></div>
+  </template>
+
+  <!-- ============ CASE STUDY MODAL ============ -->
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeading" id="modal">
+      <button class="icon-btn modal-close" id="modalClose" aria-label="Close case study">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ============ NOTES ============ -->
+  <section id="values" class="section notes">
+    <img class="deco" src="assets/illustrations/paint-brushes.png" alt="" aria-hidden="true"
+           style="--x:80%;--y:15%;--size:168px;--r:-7deg;--op:0.6;">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow reveal">What I value</p>
+        <h2 class="section-title reveal">Things I Look For</h2>
+      </div>
+
+      <div class="corkboard reveal" id="corkboard">
+        <div class="pinboard-ruler pinboard-ruler--top" id="rulerTop" aria-hidden="true"></div>
+        <div class="pinboard-ruler pinboard-ruler--left" id="rulerLeft" aria-hidden="true"></div>
+        <span class="pinboard-cross" style="left:22%;top:28%;" aria-hidden="true"></span>
+        <span class="pinboard-cross" style="left:78%;top:18%;" aria-hidden="true"></span>
+        <span class="pinboard-cross" style="left:88%;top:70%;" aria-hidden="true"></span>
+        <span class="pinboard-cross" style="left:14%;top:82%;" aria-hidden="true"></span>
+
+        <div class="sticky" data-pin="sage" style="--x:4%;--y:9%;--r:-5deg;">Mentors who explain the why, not just the what.</div>
+        <div class="sticky" data-pin="terracotta" style="--x:29%;--y:5%;--r:3deg;">Room to ask the question everyone is thinking.</div>
+        <div class="sticky" data-pin="sage" style="--x:54%;--y:10%;--r:-3deg;">Honest feedback over comfortable feedback.</div>
+        <div class="sticky" data-pin="terracotta" style="--x:79%;--y:6%;--r:4deg;">Space to get it wrong the first time.</div>
+        <div class="sticky" data-pin="sage" style="--x:4%;--y:52%;--r:4deg;">Different minds in the room, better calls out of it.</div>
+        <div class="sticky" data-pin="terracotta" style="--x:29%;--y:56%;--r:-4deg;">Being the least experienced person at the table.</div>
+        <div class="sticky" data-pin="sage" style="--x:54%;--y:51%;--r:3deg;">Passing the explanation on to the next person.</div>
+        <div class="sticky" data-pin="terracotta" style="--x:79%;--y:55%;--r:-3deg;">A team that can still laugh at 6pm on a Friday.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONNECT ============ -->
+  <section id="connect" class="section connect">
+    <img class="deco" src="assets/illustrations/celebrate.png" alt="" aria-hidden="true"
+           style="--x:78%;--y:6%;--size:170px;--r:-5deg;--op:0.5;">
+    <div class="section-inner">
+      <p class="eyebrow reveal">Get in touch</p>
+      <h2 class="connect-title reveal">Let's build something worth doing<span class="accent-dot">.</span></h2>
+
+      <div class="postcard reveal" id="postcard">
+        <!-- clipped to the top right corner, half off the card -->
+        <div class="postcard-snap">
+          <img src="assets/photos/postcard-photo.jpg" alt="Nakshatra Kadethankar">
+          <svg class="postcard-clip" viewBox="0 0 40 96" aria-hidden="true">
+            <path d="M10 80 L10 24 A10 10 0 0 1 30 24 L30 78 A8 8 0 0 1 14 78 L14 34"
+                  fill="none" stroke="currentColor" stroke-width="4.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <!-- left: what you want to say -->
+        <div class="postcard-message">
+          <p class="postcard-prompt">What brings you here?</p>
+          <div class="reason-tags" role="group" aria-label="Reason for getting in touch">
+            <button type="button" class="reason-tag" data-subject="About a role">About a role</button>
+            <button type="button" class="reason-tag" data-subject="About a project">About a project</button>
+            <button type="button" class="reason-tag" data-subject="Just saying hi">Just saying hi</button>
+          </div>
+
+          <label class="postcard-label" for="postcardNote">Your note</label>
+          <textarea id="postcardNote" class="postcard-note" rows="4"
+            placeholder="Say as much or as little as you like."></textarea>
+
+          <button type="button" class="btn btn-primary postcard-send" id="postcardSend">Send it</button>
+          <p class="postcard-status" id="postcardStatus" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- right: the address side -->
+        <div class="postcard-address">
+          <span class="postcard-franking" aria-hidden="true">
+            <img class="postcard-stamp" src="assets/illustrations/stamp-ink.png" alt="">
+            <span class="postcard-postmark">POSTED</span>
+          </span>
+
+          <p class="postcard-to">To</p>
+          <p class="postcard-name">Nakshatra Kadethankar</p>
+
+          <ul class="postcard-links">
+            <li>
+              <a href="https://www.linkedin.com/in/nakshatrak" target="_blank" rel="noopener">
+                LinkedIn
+                <span class="postcard-link-sub">linkedin.com/in/nakshatrak</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/nakshatrakadethankar44-create" target="_blank" rel="noopener">
+                GitHub
+                <span class="postcard-link-sub">github.com/nakshatrakadethankar44-create</span>
+              </a>
+            </li>
+            <li>
+              <button type="button" class="postcard-copy" id="emailCard"
+                data-email="nakshatrakadethankar44@gmail.com">
+                Email
+                <span class="postcard-link-sub" id="emailCardSub">nakshatrakadethankar44@gmail.com</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="year"></span> Nakshatra Kadethankar. Built with plain HTML, CSS &amp; JS.</p>
+  <a href="#home" data-smooth-scroll>Back to top &uarr;</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

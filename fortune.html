@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Something Extra</title>
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF5EA">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="fortune-page">
+
+<a href="index.html#home" class="fortune-back" data-cursor="link">&larr; Back home</a>
+
+<main class="fortune-main">
+  <p class="eyebrow">You found it</p>
+  <h1 class="fortune-heading">Crack open a fortune</h1>
+
+  <div class="cookie-wrap" id="cookieWrap">
+    <img class="cookie-piece cookie-piece--left" src="assets/illustrations/cookie-half-left.png" alt="" aria-hidden="true">
+    <img class="cookie-piece cookie-piece--right" src="assets/illustrations/cookie-half-right.png" alt="" aria-hidden="true">
+    <span class="crumb" style="--dx:-74px;--dy:52px;--cr:-140deg;--cd:0.02s;" aria-hidden="true"></span>
+    <span class="crumb" style="--dx:-46px;--dy:78px;--cr:120deg;--cd:0.06s;" aria-hidden="true"></span>
+    <span class="crumb" style="--dx:-12px;--dy:92px;--cr:-90deg;--cd:0.00s;" aria-hidden="true"></span>
+    <span class="crumb" style="--dx:34px;--dy:84px;--cr:160deg;--cd:0.08s;" aria-hidden="true"></span>
+    <span class="crumb" style="--dx:68px;--dy:60px;--cr:-110deg;--cd:0.04s;" aria-hidden="true"></span>
+    <span class="crumb" style="--dx:88px;--dy:24px;--cr:200deg;--cd:0.10s;" aria-hidden="true"></span>
+  </div>
+
+  <div class="fortune-slip" id="fortuneSlip">
+    <p id="fortuneText" role="status" aria-live="polite">Your fortune awaits.</p>
+  </div>
+
+  <button class="btn btn-primary" id="crackBtn">Crack it open</button>
+</main>
+
+<script src="fortune.js"></script>
+</body>
+</html>
