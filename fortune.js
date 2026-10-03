@@ -72,7 +72,7 @@
     'You will rewatch the comfort show instead of the new one.'
   ];
 
-  var wrap = document.getElementById('cookieWrap');
+  var wrap = document.getElementById('shellWrap');
   var btn = document.getElementById('crackBtn');
   var text = document.getElementById('fortuneText');
   var cracked = false;

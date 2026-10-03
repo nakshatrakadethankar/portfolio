@@ -1834,26 +1834,26 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 /* The cookie is Nash's own drawing, cut into two halves along the fold she
    drew. Both halves are full-canvas PNGs stacked at the same position, so at
    rest they reconstruct the original exactly and the seam is invisible. */
-.cookie-wrap {
+.shell-wrap {
   position: relative;
   width: min(300px, 62vw);
   aspect-ratio: 1 / 1;
   margin-bottom: 1.6rem;
 }
 
-.cookie-piece {
+.shell-piece {
   position: absolute;
   inset: 0;
   width: 100%;
   height: auto;
 }
-.cookie-piece--left  { transform-origin: 62% 58%; }
-.cookie-piece--right { transform-origin: 38% 58%; }
+.shell-piece--left  { transform-origin: 62% 58%; }
+.shell-piece--right { transform-origin: 38% 58%; }
 
 /* Each half winds briefly toward the middle before it snaps outward, so the
    break has a moment of tension rather than just sliding apart. */
-.cookie-wrap.cracked .cookie-piece--left  { animation: break-left  0.62s var(--ease-swift) forwards; }
-.cookie-wrap.cracked .cookie-piece--right { animation: break-right 0.62s var(--ease-swift) forwards; }
+.shell-wrap.cracked .shell-piece--left  { animation: break-left  0.62s var(--ease-swift) forwards; }
+.shell-wrap.cracked .shell-piece--right { animation: break-right 0.62s var(--ease-swift) forwards; }
 
 @keyframes break-left {
   0%   { translate: 0 0;        rotate: 0deg; }
@@ -1879,7 +1879,7 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   opacity: 0;
   pointer-events: none;
 }
-.cookie-wrap.cracked .crumb {
+.shell-wrap.cracked .crumb {
   animation: crumb-fly 0.72s var(--ease-swift) var(--cd, 0s) forwards;
 }
 
@@ -1916,14 +1916,14 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   color: var(--color-ink);
 }
 
-.cookie-wrap.cracked ~ .fortune-slip { opacity: 1; translate: 0 0; }
+.shell-wrap.cracked ~ .fortune-slip { opacity: 1; translate: 0 0; }
 
 @media (prefers-reduced-motion: reduce) {
-  .cookie-wrap.cracked .cookie-piece--left,
-  .cookie-wrap.cracked .cookie-piece--right { animation: none; }
-  .cookie-wrap.cracked .cookie-piece--left  { translate: -19% 7%; rotate: -17deg; }
-  .cookie-wrap.cracked .cookie-piece--right { translate: 17% 5%;  rotate: 14deg; }
-  .cookie-wrap.cracked .crumb { animation: none; }
+  .shell-wrap.cracked .shell-piece--left,
+  .shell-wrap.cracked .shell-piece--right { animation: none; }
+  .shell-wrap.cracked .shell-piece--left  { translate: -19% 7%; rotate: -17deg; }
+  .shell-wrap.cracked .shell-piece--right { translate: 17% 5%;  rotate: 14deg; }
+  .shell-wrap.cracked .crumb { animation: none; }
   .fortune-slip { transition: opacity 0.2s linear; }
 }
 
