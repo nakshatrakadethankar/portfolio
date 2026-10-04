@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <defs>
+    <radialGradient id="dome" cx="38%" cy="32%" r="70%">
+      <stop offset="0" stop-color="#EEF3CC"/>
+      <stop offset="0.35" stop-color="#C9D77E"/>
+      <stop offset="1" stop-color="#8E9E3E"/>
+    </radialGradient>
+    <linearGradient id="collar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7E8D36"/>
+      <stop offset="0.45" stop-color="#B7C66A"/>
+      <stop offset="1" stop-color="#6F7D2F"/>
+    </linearGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+    <filter id="softer" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- light from the top left: the pin throws its shadow down and right,
+       and the needle's shadow runs out from under it onto the paper -->
+  <path d="M28 30 L43 43" stroke="#2E1F1A" stroke-opacity="0.35" stroke-width="2.2" stroke-linecap="round" filter="url(#softer)"/>
+  <ellipse cx="34" cy="34" rx="13" ry="11.5" fill="#2E1F1A" fill-opacity="0.35" filter="url(#soft)"/>
+
+  <!-- the waist and lower flange, seen slightly from above -->
+  <ellipse cx="29" cy="31" rx="9.5" ry="8.5" fill="#6F7D2F"/>
+  <ellipse cx="28.5" cy="29.5" rx="6" ry="5.5" fill="url(#collar)"/>
+
+  <!-- the domed head -->
+  <circle cx="27" cy="26" r="12.5" fill="#76853A"/>
+  <circle cx="26.3" cy="25.2" r="11.6" fill="url(#dome)"/>
+  <ellipse cx="22" cy="20.5" rx="4.2" ry="2.6" fill="#FFFFFF" fill-opacity="0.75" transform="rotate(-35 22 20.5)"/>
+  <circle cx="31.5" cy="30" r="1.1" fill="#FFFFFF" fill-opacity="0.35"/>
+</svg>

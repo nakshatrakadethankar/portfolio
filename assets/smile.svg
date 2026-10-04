@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#4A342E" stroke-linecap="round" stroke-linejoin="round">
+  <!-- one pen stroke round, overshooting where it meets itself, like a doodle -->
+  <path d="M53 8.5C75 8 92.5 25 92 49.5C91.5 74 73.5 92 49 91.5C25.5 91 8 73.5 8.5 50C9 27 26.5 9.5 49 8C53.5 7.7 58 8.6 61 9.8" fill="#FAF5EA" stroke-width="5.5"/>
+  <path d="M36.5 36.5c.3 2.6.2 6.2-.3 9" stroke-width="6"/>
+  <path d="M63.5 36c.4 2.7.3 6.3-.2 9.2" stroke-width="6"/>
+  <path d="M29.5 58.5c5 10.5 13 15.5 21.5 15.2c8.6-.3 15.6-5.6 20-15.6" stroke-width="5.5"/>
+</svg>
