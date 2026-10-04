@@ -728,7 +728,7 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-sage);
-  margin-bottom: 0.2rem;
+  margin-bottom: 1.1rem;
 }
 .intro-dialog-title {
   font-family: var(--font-display);
