@@ -639,6 +639,21 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   text-align: left;
   pointer-events: none;
 }
+/* a handwritten nudge on the back panel's top strip, the only part the front
+   pocket does not cover */
+.folder-open {
+  position: absolute;
+  top: 3.5%;
+  right: 8%;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-ink);
+  rotate: 3deg;
+  pointer-events: none;
+}
 .folder-name {
   display: block;
   font-family: var(--font-display);
@@ -884,6 +899,15 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   gap: 0.75rem;
 }
 .side-left .journey-sub li { flex-direction: row-reverse; }
+
+/* The dotted trail bulges toward the text column, and at the MEM stop it came
+   within 20px of the sub-list's dashed line. Stepping the list in on the side
+   that faces the trail keeps the two from running alongside each other. Only
+   while the trail is drawn: below 1025px it becomes a straight spine on the left. */
+@media (min-width: 1025px) {
+  .side-right .journey-sub { margin-left: 2.75rem; }
+  .side-left .journey-sub { margin-right: 2.75rem; }
+}
 
 .journey-sub-icon {
   width: 36px;
