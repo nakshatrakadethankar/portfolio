@@ -1639,7 +1639,7 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   background-image: var(--texture-grain);
   background-repeat: repeat;
   background-size: 200px 200px;
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1rem;
   /* full width so the cream reaches the frame, with the content still centred
      on the same container width as every section above it */
   padding: 2.5rem max(2.5rem, calc((100% - var(--container)) / 2));
@@ -1809,7 +1809,6 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   .pinboard-ruler--left { top: 34px; }
   .sticky { width: 130px; min-height: 88px; font-size: 1rem; padding: 1rem 0.8rem 0.8rem; border-radius: 10px; }
 
-  .site-footer { flex-direction: column; align-items: flex-start; text-align: left; }
 }
 
 @media (max-width: 380px) {

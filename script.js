@@ -4,7 +4,6 @@
   var isTouch = window.matchMedia('(pointer: coarse)').matches;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  document.getElementById('year').textContent = new Date().getFullYear();
 
   /* ============ swift custom smooth scroll ============ *
    * scroll-behavior: smooth was removed on purpose. This hand-tuned
