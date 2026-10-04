@@ -336,7 +336,7 @@
     <p class="modal-eyebrow">Side project &middot; Built and shipped</p>
     <h3>Aux Cord Diagnosis</h3>
     <div class="case-grid">
-      <div><h4>Problem</h4><p>Most of my work is deciding what gets built and then handing it to someone else. I wanted one thing I had taken the whole way myself, from the front end through the API to something with a live URL.</p></div>
+      <div><h4>Problem</h4><p>Spotify Wrapped only comes once a year, and it's always nice to you. Meanwhile everyone has opinions about their friends' music taste, but nobody says them out loud. So I built something that does it for you, any time: log in with Spotify, and it reads your top tracks and writes you a fake medical report diagnosing what's wrong with your taste, roasting you while it's at it.</p></div>
       <div><h4>Approach</h4><p>Spotify OAuth pulls your real top tracks and audio features, then a prompt sends that pattern to Claude and gets structured JSON back, which the page renders as a mock medical chart. Serverless functions on Vercel, with both API keys held server side so nothing sensitive reaches the browser.</p></div>
       <div><h4>Outcome</h4><p>Live and working. The interesting part turned out to be the prompt, not the plumbing: early versions just read your artists back to you, which was boring, so I constrained the model to infer the vibe from the pattern and never name a track. That single rule is what made it funny.</p></div>
     </div>
