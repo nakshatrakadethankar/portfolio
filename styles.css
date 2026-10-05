@@ -647,7 +647,7 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   right: 7%;
   z-index: 2;
   font-family: var(--font-body);
-  font-size: clamp(0.7rem, 0.95vw, 0.85rem);
+  font-size: clamp(0.62rem, 0.8vw, 0.74rem);
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
