@@ -217,6 +217,7 @@
     var openIntro = function () {
       introLastFocused = document.activeElement;
       introFolder.classList.add('is-open');
+      introFolder.classList.add('was-opened');
       introFolder.setAttribute('aria-expanded', 'true');
       introOverlay.hidden = false;
       document.body.style.overflow = 'hidden';

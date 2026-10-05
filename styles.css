@@ -34,7 +34,7 @@
   /* same grain, cream-colored, for the dark ink surfaces (Work band, pinboard) */
   --texture-grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.98 0 0 0 0 0.96 0 0 0 0 0.92 0 0 0 0.25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
-  --font-display: 'Caveat', cursive;
+  --font-display: var(--font-body);
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --ease-swift: cubic-bezier(.16, 1, .3, 1);
@@ -123,9 +123,9 @@ section.section {
 }
 
 .section-title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(2.4rem, 5.4vw, 3.8rem);
+  font-size: clamp(1.92rem, 4.32vw, 3.04rem);
   letter-spacing: -0.01em;
   line-height: 1.08;
 }
@@ -345,8 +345,8 @@ body.menu-open .site-nav { background: none; box-shadow: none; }
 body.menu-open .nav-toggle span { background: var(--color-cream); }
 
 .mobile-link {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 9vw, 3.2rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.76rem, 7.2vw, 2.56rem);
   font-weight: 600;
   min-height: 44px;
   display: flex;
@@ -379,9 +379,9 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   border: 1.5px solid var(--color-ink);
   border-right: none;
   box-shadow: -3px 3px 0 rgba(74, 52, 46, 0.18);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.8rem;
   z-index: 500;
   opacity: 0;
   pointer-events: none;
@@ -539,9 +539,9 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 }
 
 .hero-title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  font-size: clamp(2.08rem, 4.8vw, 3.52rem);
   line-height: 0.98;
   letter-spacing: -0.01em;
 }
@@ -644,20 +644,37 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 .folder-open {
   position: absolute;
   top: 3.5%;
-  right: 8%;
+  right: 7%;
   z-index: 2;
-  font-family: var(--font-display);
-  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: clamp(0.7rem, 0.95vw, 0.85rem);
+  font-weight: 600;
   line-height: 1;
+  white-space: nowrap;
   color: var(--color-ink);
-  rotate: 3deg;
   pointer-events: none;
+}
+
+/* A small wiggle every few seconds, so the folder reads as something to open
+   rather than part of the drawing. It stops for good once it has been opened.
+   Uses the individual rotate/translate properties so it does not fight the
+   hover lift, which is a transform on .folder-stage. */
+@keyframes folder-nudge {
+  0%, 72%, 100% { rotate: 0deg; translate: 0 0; }
+  76% { rotate: -3deg; translate: 0 -4px; }
+  80% { rotate: 2.5deg; translate: 0 -4px; }
+  84% { rotate: -1.5deg; translate: 0 -2px; }
+  88% { rotate: 0.8deg; translate: 0 0; }
+}
+.folder:not(.was-opened) { animation: folder-nudge 4.5s ease-in-out 1.2s infinite; }
+.folder-stage:hover .folder { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .folder { animation: none !important; }
 }
 .folder-name {
   display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.8rem, 1.2vw, 1.04rem);
   font-weight: 700;
   line-height: 1.05;
   color: var(--color-ink);
@@ -731,8 +748,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   margin-bottom: 1.1rem;
 }
 .intro-dialog-title {
-  font-family: var(--font-display);
-  font-size: 1.9rem;
+  font-family: var(--font-body);
+  font-size: 1.52rem;
   font-weight: 700;
   line-height: 1.05;
   margin-bottom: 1.1rem;
@@ -742,8 +759,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 
 .intro-dialog-list { display: grid; gap: 1.05rem; }
 .intro-dialog-list dt {
-  font-family: var(--font-display);
-  font-size: 1.12rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--color-cream);
   margin-bottom: 0.15rem;
@@ -849,8 +866,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 .journey-item:nth-child(7) .journey-icon { transform: rotate(-7deg); }
 
 .timeline-date {
-  font-family: var(--font-display);
-  font-size: 1rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-sage-dark);
@@ -858,8 +875,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 }
 
 .journey-text h3 {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.6vw, 1.7rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.12rem, 2.08vw, 1.36rem);
   font-weight: 700;
   margin-bottom: 0.6rem;
   letter-spacing: -0.01em;
@@ -929,8 +946,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   margin-bottom: 0.15rem;
 }
 .journey-sub h4 {
-  font-family: var(--font-display);
-  font-size: 1.08rem;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 0.2rem;
@@ -1026,18 +1043,18 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   position: absolute;
   bottom: 0.6rem;
   left: 0.6rem;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
   color: var(--color-paper);
   background: rgba(74, 52, 46, 0.55);
   padding: 0.25rem 0.6rem;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
 }
 
 .polaroid-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.8vw, 1.7rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.12rem, 2.24vw, 1.36rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
@@ -1118,8 +1135,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   margin-bottom: 0.6rem;
 }
 #modalBody h3 {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.4vw, 2rem);
+  font-family: var(--font-body);
+  font-size: clamp(1.28rem, 2.72vw, 1.6rem);
   font-weight: 700;
   margin-bottom: 1.2rem;
   padding-right: 2rem;
@@ -1131,8 +1148,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   margin-bottom: 1.6rem;
 }
 .case-grid h4 {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--color-sage-dark);
   margin-bottom: 0.4rem;
@@ -1217,9 +1234,9 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   width: 172px;
   min-height: 104px;
   padding: 1.3rem 1.1rem 1.1rem;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: 0.92rem;
   line-height: 1.3;
   border-radius: 14px;
   border: 1px solid rgba(74, 52, 46, 0.08);
@@ -1263,9 +1280,9 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 }
 
 .connect-title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(2.6rem, 6.4vw, 4.2rem);
+  font-size: clamp(2.08rem, 5.12vw, 3.36rem);
   line-height: 1.08;
   margin-bottom: 3rem;
   max-width: 16ch;
@@ -1301,8 +1318,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 }
 
 .postcard-prompt {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-family: var(--font-body);
+  font-size: 1.12rem;
   font-weight: 700;
   margin-bottom: 0.9rem;
 }
@@ -1399,8 +1416,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   translate: -50% -50%;
   rotate: -14deg;
   z-index: 2;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: 0.06em;
@@ -1462,8 +1479,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   margin-bottom: 0.2rem;
 }
 .postcard-name {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
   font-weight: 700;
   max-width: 60%;
 }
@@ -1474,8 +1491,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   display: block;
   width: 100%;
   text-align: left;
-  font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-family: var(--font-body);
+  font-size: 0.96rem;
   font-weight: 700;
   color: var(--color-ink);
   padding: 0.5rem 0.2rem;
@@ -1572,8 +1589,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   border-radius: 50%;
 }
 .skill-sheet h2 {
-  font-family: var(--font-display);
-  font-size: 1.7rem;
+  font-family: var(--font-body);
+  font-size: 1.36rem;
   font-weight: 700;
   line-height: 1.05;
 }
@@ -1607,8 +1624,8 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 
 .skills-cert {
   margin-top: 2.6rem;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
   line-height: 1.3;
 }
 
@@ -1629,7 +1646,7 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 @media (max-width: 760px) {
   .skills-page { padding-top: calc(var(--nav-h) + 2rem); }
   .skill-sheet { padding: 1.4rem 1.3rem 1.5rem; }
-  .skill-sheet h2 { font-size: 1.45rem; }
+  .skill-sheet h2 { font-size: 1.16rem; }
   .skill-sheets { gap: 1.3rem; }
 }
 
@@ -1677,7 +1694,7 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   .postcard-to { font-size: 0.78rem; }
   .intro-dialog-eyebrow { font-size: 0.82rem; }
   .journey-sub-date { font-size: 0.72rem; }
-  .polaroid-index { font-size: 0.83rem; }
+  .polaroid-index { font-size: 0.78rem; }
 }
 
 /* ============================================================
@@ -1807,7 +1824,7 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
   .corkboard { min-height: 620px; border-width: 6px; border-radius: 18px; padding: 34px 16px 16px 34px; }
   .pinboard-ruler--top { left: 34px; }
   .pinboard-ruler--left { top: 34px; }
-  .sticky { width: 130px; min-height: 88px; font-size: 1rem; padding: 1rem 0.8rem 0.8rem; border-radius: 10px; }
+  .sticky { width: 130px; min-height: 88px; font-size: 0.8rem; padding: 1rem 0.8rem 0.8rem; border-radius: 10px; }
 
 }
 
@@ -1857,9 +1874,9 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
 }
 
 .fortune-heading {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  font-size: clamp(1.92rem, 5.6vw, 2.72rem);
   margin-bottom: 0.8rem;
 }
 
@@ -1943,9 +1960,9 @@ body.menu-open .nav-toggle span { background: var(--color-cream); }
               translate var(--dur-swift) var(--ease-swift) 0.18s;
 }
 .fortune-slip p {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: 1.04rem;
   line-height: 1.35;
   color: var(--color-ink);
 }
